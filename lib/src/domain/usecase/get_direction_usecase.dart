@@ -1,4 +1,4 @@
-import 'package:dartz/dartz.dart'; 
+import 'package:dartz/dartz.dart';
 
 import '../../core/failures/failure.dart';
 import '../../core/use_case.dart';

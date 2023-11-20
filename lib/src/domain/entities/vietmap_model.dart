@@ -1,3 +1,5 @@
+/// VietmapModel is a base model class that contains the information of a Vietmap
+/// object.
 class VietmapModel {
   double? lat;
 

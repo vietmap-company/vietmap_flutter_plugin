@@ -1,4 +1,4 @@
-import 'package:vietmap_plugin/src/domain/entities/vietmap_autocomplete_params.dart';
+import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_autocomplete_params.dart';
 
 import '../../core/failures/failure.dart';
 import '../../domain/entities/vietmap_routing_params.dart';

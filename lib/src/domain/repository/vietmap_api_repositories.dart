@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:dartz/dartz.dart';
-import 'package:vietmap_plugin/src/core/enums/failure_enum.dart';
-import 'package:vietmap_plugin/src/domain/entities/vietmap_autocomplete_params.dart';
-import 'package:vietmap_plugin/src/extension/latlng_extension.dart';
-import 'package:vietmap_plugin/src/extension/string_extension.dart';
+import 'package:vietmap_flutter_plugin/src/core/enums/failure_enum.dart';
+import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_autocomplete_params.dart';
+import 'package:vietmap_flutter_plugin/src/extension/latlng_extension.dart';
+import 'package:vietmap_flutter_plugin/src/extension/string_extension.dart';
 import '../../core/failures/api_server_failure.dart';
 import '../../core/failures/api_timeout_failure.dart';
 import '../../core/failures/apikey_limited_failure.dart';

@@ -1,5 +1,6 @@
 import '../../data/models/vietmap_routing_model.dart';
 
+/// VietmapRouting is a model which contains the information of a VietmapRouting response.
 class VietMapRouting {
   String? license;
   String? code;

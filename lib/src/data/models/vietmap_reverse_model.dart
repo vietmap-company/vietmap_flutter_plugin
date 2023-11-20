@@ -1,4 +1,3 @@
- 
 import '../../domain/entities/vietmap_model.dart';
 
 class VietmapReverseModel extends VietmapModel {

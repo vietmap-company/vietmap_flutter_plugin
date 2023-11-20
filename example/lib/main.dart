@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vietmap_plugin/vietmap_plugin.dart';
+import 'package:vietmap_flutter_plugin/vietmap_flutter_plugin.dart';
 
 void main() {
   runApp(const MyApp());
@@ -59,17 +59,18 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
   Future<void> _incrementCounter() async {
-    var res = await Vietmap.reverse(LatLng(21.027763, 105.834160));
+    var res = await Vietmap.reverse(const LatLng(21.027763, 105.834160));
     print(res);
     Vietmap.autocomplete(VietMapAutoCompleteParams(textSearch: 'Hà Nội'));
     Vietmap.geoCode(VietMapAutoCompleteParams(textSearch: 'Hà Nội'));
-    Vietmap.reverse(LatLng(21.027763, 105.834160));
-    Vietmap.place('ChIJkUgT0-gPDTERKxE8d61aX_E');
+    Vietmap.reverse(const LatLng(21.027763, 105.834160));
+    Vietmap.place('Place ID');
     Vietmap.routing(VietMapRoutingParams(points: [
-      LatLng(21.027763, 105.834160),
-      LatLng(21.027763, 105.834160)
+      const LatLng(21.027763, 105.834160),
+      const LatLng(21.027763, 105.834160)
     ]));
     Vietmap.getVietmapStyleUrl();
+
     setState(() {
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below
