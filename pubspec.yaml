@@ -2,8 +2,8 @@ name: vietmap_plugin
 description: A flutter plugin for VietMap APIs. This plugin is a wrapper around VietMap APIs for Android and iOS.
 version: 0.0.1
 homepage: https://github.com/vietmap-company
-repository: https://github.com/vietmap-company/vietmap_apis.git
-issue_tracker: https://github.com/vietmap-company/vietmap_apis/issues
+repository: https://github.com/vietmap-company/vievietmap_flutter_pluginmap_apis.git
+issue_tracker: https://github.com/vietmap-company/vietmap_flutter_plugin/issues
 
 
 

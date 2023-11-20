@@ -64,6 +64,7 @@ class Vietmap {
   // suggests potential matches based on the context of the search. This model
   // can be updated in real-time, allowing the API to continuously improve its
   // suggestions as more data becomes available
+
   static Future<Either<Failure, List<VietmapAutocompleteModel>>> autocomplete(
       VietMapAutoCompleteParams params) {
     return SearchAddressUseCase(getVietmapApiRepositories()).call(params);
@@ -75,6 +76,7 @@ class Vietmap {
   // and techniques, this latest version can swiftly deliver precise search
   // results for users. This API is a powerful tool that can help enhance the
   // user experience of location-based applications.
+
   static Future<Either<Failure, VietmapReverseModel>> reverse(LatLng location) {
     return GetLocationFromLatLngUseCase(getVietmapApiRepositories())
         .call(LocationPoint(lat: location.latitude, long: location.longitude));
@@ -95,6 +97,7 @@ class Vietmap {
   // estimated travel time, and turn-by-turn directions. Developers can use
   // Route Maps APIs to create applications that help with navigation,
   // transportation planning, and logistics management.
+
   static Future<Either<Failure, VietMapRoutingModel>> routing(
       VietMapRoutingParams vietMapRoutingParams) {
     return GetDirectionUseCase(getVietmapApiRepositories())
@@ -105,6 +108,7 @@ class Vietmap {
   // location search functionality into their applications with optimized
   //performance. Additionally, this latest version utilizes intelligent search
   //algorithms and methods to provide accurate and speedy search results for users.
+
   static Future<Either<Failure, List<VietmapAutocompleteModel>>> geoCode(
       VietMapAutoCompleteParams params) {
     return GeoCodeUseCase(getVietmapApiRepositories()).call(params);

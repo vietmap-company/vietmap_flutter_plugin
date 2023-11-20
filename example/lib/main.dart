@@ -61,7 +61,15 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<void> _incrementCounter() async {
     var res = await Vietmap.reverse(LatLng(21.027763, 105.834160));
     print(res);
-
+    Vietmap.autocomplete(VietMapAutoCompleteParams(textSearch: 'Hà Nội'));
+    Vietmap.geoCode(VietMapAutoCompleteParams(textSearch: 'Hà Nội'));
+    Vietmap.reverse(LatLng(21.027763, 105.834160));
+    Vietmap.place('ChIJkUgT0-gPDTERKxE8d61aX_E');
+    Vietmap.routing(VietMapRoutingParams(points: [
+      LatLng(21.027763, 105.834160),
+      LatLng(21.027763, 105.834160)
+    ]));
+    Vietmap.getVietmapStyleUrl();
     setState(() {
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below
