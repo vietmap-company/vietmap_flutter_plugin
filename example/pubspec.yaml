@@ -38,6 +38,8 @@ dependencies:
 
   vietmap_flutter_plugin:
     path: ../../vietmap_apis
+  vietmap_flutter_gl: ^1.2.6
+
 
 dev_dependencies:
   flutter_test:

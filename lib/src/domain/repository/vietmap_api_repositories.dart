@@ -114,7 +114,7 @@ class VietmapApiRepositories implements VietmapApiRepository {
   Future<Either<Failure, VietMapRoutingModel>> findRoute(
       VietMapRoutingParams params) async {
     try {
-      String path = params.toMap(apiKey).toString();
+      String path = params.toMap().toString();
 
       path = path.convertJsonToUrlPath();
       for (var element in params.points) {

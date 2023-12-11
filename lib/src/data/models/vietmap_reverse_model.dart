@@ -1,8 +1,13 @@
 import '../../domain/entities/vietmap_model.dart';
 
+// VietmapReverseModel is a model class that is used to parse the response
+// from the server.
 class VietmapReverseModel extends VietmapModel {
+  /// [refId] is the reference id of the place.
   String? refId;
-  double? distance;
+
+  /// [distance] is the distance of the place.
+  num? distance;
 
   VietmapReverseModel(
       {super.lat,
@@ -12,6 +17,8 @@ class VietmapReverseModel extends VietmapModel {
       super.address,
       super.name,
       super.display});
+
+  /// [fromJson] is a method that is used to parse the response from the server.
   VietmapReverseModel.fromJson(Map<String, dynamic> json) {
     lat = json['lat'];
     lng = json['lng'];
@@ -22,6 +29,7 @@ class VietmapReverseModel extends VietmapModel {
     display = json['display'];
   }
 
+  /// [toJson] is a method that is used to convert the object to a json object.
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['lat'] = lat;

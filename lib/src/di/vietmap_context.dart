@@ -1,14 +1,8 @@
-import 'package:dartz/dartz.dart';
-import 'package:vietmap_flutter_plugin/src/core/failures/failure.dart';
-import 'package:vietmap_flutter_plugin/src/data/models/vietmap_autocomplete_model.dart';
-import 'package:vietmap_flutter_plugin/src/data/models/vietmap_reverse_model.dart';
 import 'package:vietmap_flutter_plugin/src/domain/repository/vietmap_api_repositories.dart';
 import 'package:vietmap_flutter_plugin/src/domain/usecase/geocode_usecase.dart';
 import 'package:vietmap_flutter_plugin/src/domain/usecase/get_location_from_latlng_usecase.dart';
 
 import '../../vietmap_flutter_plugin.dart';
-import '../data/models/vietmap_place_model.dart';
-import '../data/models/vietmap_routing_model.dart';
 import '../domain/usecase/get_direction_usecase.dart';
 import '../domain/usecase/get_place_detail_usecase.dart';
 import '../domain/usecase/search_address_usecase.dart';
@@ -43,6 +37,7 @@ class Vietmap {
     return 'https://maps.vietmap.vn/api/maps/light/styles.json?apikey=$_vietmapAPIKey';
   }
 
+  /// Get base url for Vietmap APIs
   static String getVietmapBaseUrl() {
     if (_vietmapAPIKey.isEmpty) {
       throw Exception('Please call `Vietmap.getInstance(apiKey)` before use');
@@ -50,6 +45,7 @@ class Vietmap {
     return 'https://maps.vietmap.vn/api/';
   }
 
+  // Get VietmapApiRepositories instance
   static VietmapApiRepositories getVietmapApiRepositories() {
     return VietmapApiRepositories();
   }
@@ -75,7 +71,7 @@ class Vietmap {
   // user experience of location-based applications.
   static Future<Either<Failure, VietmapReverseModel>> reverse(LatLng location) {
     return GetLocationFromLatLngUseCase(getVietmapApiRepositories())
-        .call(LocationPoint(lat: location.latitude, long: location.longitude));
+        .call(LatLng(location.latitude, location.longitude));
   }
 
   // The Place API service endpoint provides detailed information about the

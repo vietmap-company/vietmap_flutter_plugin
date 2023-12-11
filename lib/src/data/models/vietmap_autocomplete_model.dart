@@ -1,6 +1,9 @@
 import '../../domain/entities/vietmap_model.dart';
 
+// VietmapAutocompleteModel is a model class that is used to parse the response
+// from the server.
 class VietmapAutocompleteModel extends VietmapModel {
+  /// [refId] is the reference id of the place.
   String? refId;
 
   VietmapAutocompleteModel({
@@ -10,6 +13,7 @@ class VietmapAutocompleteModel extends VietmapModel {
     super.display,
   });
 
+  /// [fromJson] is a method that is used to parse the response from the server.
   VietmapAutocompleteModel.fromJson(Map<String, dynamic> json) {
     refId = json['ref_id'];
     address = json['address'];
@@ -17,6 +21,7 @@ class VietmapAutocompleteModel extends VietmapModel {
     display = json['display'];
   }
 
+  /// [toJson] is a method that is used to convert the object to a json object.
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['ref_id'] = refId;

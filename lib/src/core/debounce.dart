@@ -1,7 +1,12 @@
 import 'dart:async';
 
+// Debounce is a class that is used to delay the execution of a function.
+
 class Debounce {
+  /// [delay] is the time that the function will be delayed.
   Duration delay;
+
+  /// [_timer] is the timer that is used to delay the execution of a function.
   Timer? _timer;
 
   Debounce({

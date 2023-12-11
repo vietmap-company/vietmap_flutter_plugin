@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:vietmap_flutter_gl/vietmap_flutter_gl.dart';
 import 'package:vietmap_flutter_plugin/vietmap_flutter_plugin.dart';
+import 'package:vietmap_gl_platform_interface/vietmap_gl_platform_interface.dart';
 
 void main() {
   runApp(const MyApp());
@@ -57,7 +59,9 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-
+  VietmapController? _mapController;
+  final List<Marker> _nearbyMarker = [];
+  final Debounce _debounce = Debounce();
   Future<void> _incrementCounter() async {
     var res = await Vietmap.reverse(const LatLng(21.027763, 105.834160));
     print(res);
@@ -65,10 +69,20 @@ class _MyHomePageState extends State<MyHomePage> {
     Vietmap.geoCode(VietMapAutoCompleteParams(textSearch: 'Hà Nội'));
     Vietmap.reverse(const LatLng(21.027763, 105.834160));
     Vietmap.place('Place ID');
-    Vietmap.routing(VietMapRoutingParams(points: [
+    var routingResponse = await Vietmap.routing(VietMapRoutingParams(points: [
       const LatLng(21.027763, 105.834160),
       const LatLng(21.027763, 105.834160)
     ]));
+    routingResponse.fold((Failure failure) {
+      // handle failure here
+    }, (VietMapRoutingModel success) {
+      if (success.paths?.isNotEmpty == true &&
+          success.paths![0].points?.isNotEmpty == true) {
+        /// import this [import 'package:vietmap_gl_platform_interface/vietmap_gl_platform_interface.dart';] package
+        List<LatLng> points =
+            VietmapPolylineDecoder.decodePolyline(success.paths![0].points!);
+      }
+    });
     Vietmap.getVietmapStyleUrl();
 
     setState(() {
@@ -83,63 +97,74 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
+    /// Must call this method before use Vietmap APIs.
     Vietmap.getInstance('YOUR_API_KEY_HERE');
-
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          title: Text(widget.title),
         ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              SizedBox(
+                height: 300,
+                child: Stack(
+                  children: [
+                    VietmapGL(
+                        onMapCreated: (controller) {
+                          setState(() {
+                            _mapController = controller;
+                          });
+                        },
+                        trackCameraPosition: true,
+                        myLocationEnabled: true,
+                        myLocationTrackingMode: MyLocationTrackingMode.Tracking,
+                        initialCameraPosition: const CameraPosition(
+                            target: LatLng(21.027763, 105.834160), zoom: 7),
+                        styleString: Vietmap.getVietmapStyleUrl()),
+                    _mapController == null
+                        ? const SizedBox.shrink()
+                        : MarkerLayer(
+                            markers: _nearbyMarker,
+                            mapController: _mapController!)
+                  ],
+                ),
+              ),
+              Expanded(
+                child: SingleChildScrollView(
+                    child: Column(
+                  children: [
+                    TextField(
+                      decoration: InputDecoration(
+                        hintText: 'Enter a search term',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        suffixIcon: const Icon(Icons.search),
+                      ),
+                      onChanged: (value) {},
+                    )
+                  ],
+                )),
+              )
+            ],
+          ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: _incrementCounter,
+          tooltip: 'Increment',
+          child: const Icon(Icons.add),
+        ), // This trailing comma makes auto-formatting nicer for build methods.
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
