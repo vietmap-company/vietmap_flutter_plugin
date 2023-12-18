@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:flutter/material.dart';
 import 'package:vietmap_flutter_gl/vietmap_flutter_gl.dart';
 import 'package:vietmap_flutter_plugin/vietmap_flutter_plugin.dart';
@@ -58,13 +60,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
   VietmapController? _mapController;
   final List<Marker> _nearbyMarker = [];
-  final Debounce _debounce = Debounce();
+
   Future<void> _incrementCounter() async {
     var res = await Vietmap.reverse(const LatLng(21.027763, 105.834160));
-    print(res);
+
     Vietmap.autocomplete(VietMapAutoCompleteParams(textSearch: 'Hà Nội'));
     Vietmap.geoCode(VietMapAutoCompleteParams(textSearch: 'Hà Nội'));
     Vietmap.reverse(const LatLng(21.027763, 105.834160));
@@ -84,15 +85,6 @@ class _MyHomePageState extends State<MyHomePage> {
       }
     });
     Vietmap.getVietmapStyleUrl();
-
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
   }
 
   @override

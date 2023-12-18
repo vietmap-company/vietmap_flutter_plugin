@@ -1,4 +1,9 @@
 
+## 0.1.0, Dec 18, 2023
+* Upgrade `vietmap_gl_platform_interface` to `0.1.4`
+* Add topic for `pub.dev`
+## 0.0.7, Dec 12, 2023
+* Upgrade `vietmap_gl_platform_interface` to `0.1.2 `
 ## 0.0.6, Dec 11, 2023
 * Upgrade `vietmap_gl_platform_interface` to `0.1.1 `
 * Update `README.md`
