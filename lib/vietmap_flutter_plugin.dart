@@ -10,7 +10,7 @@ export 'src/domain/entities/vietmap_autocomplete_params.dart'
 
 /// Input params for VietmapRouting method
 export 'src/domain/entities/vietmap_routing_params.dart'
-    show VietMapRoutingParams;
+    show VietMapRoutingParams, VehicleType;
 
 /// LatLng class, use this to create LatLng object
 export 'package:vietmap_gl_platform_interface/vietmap_gl_platform_interface.dart'
@@ -38,3 +38,9 @@ export 'package:dartz/dartz.dart' show Either, Left, Right;
 export 'src/core/use_case.dart' show UseCase;
 export 'src/core/no_params.dart' show NoParams;
 export 'src/core/debounce.dart' show Debounce;
+export 'src/extension/latlng_extension.dart' show LatLngExtension;
+export 'src/extension/string_extension.dart' show StringExtension;
+
+export 'src/domain/entities/vietmap_model.dart' show VietmapModel;
+export 'src/domain/entities/vietmap_routing.dart'
+    show VietMapRouting, Paths, Instructions;

@@ -4,13 +4,13 @@ enum VehicleType { car, bike, foot, motorcycle }
 
 /// Params for VietMapRouting api call
 class VietMapRoutingParams {
-  /// [points] : (List<LatLng>) list of points that you want to routing, allow 2 points at least
+  /// [points] : [List<LatLng>] list of points that you want to routing, allow 2 points at least
   List<LatLng> points;
 
-  /// [vehicle] : (VehicleType) type of vehicle that you want to routing, default is car
+  /// [vehicle] : [VehicleType] type of vehicle that you want to routing, default is car
   VehicleType vehicle;
 
-  /// [optimize] : (bool) optimize the route, default is false
+  /// [optimize] : [bool] optimize the route, default is false
   bool optimize;
 
   VietMapRoutingParams(

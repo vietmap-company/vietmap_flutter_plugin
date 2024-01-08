@@ -1,3 +1,4 @@
+import '../../../vietmap_flutter_plugin.dart';
 import '../../data/models/vietmap_routing_model.dart';
 
 /// VietmapRouting is a model which contains the information of a VietmapRouting response.
@@ -36,13 +37,18 @@ class Paths {
   /// it will move camera to view all the path inside the screen.
   List<num?>? bbox;
 
-  /// [points] is the encoded points of the path, which response a list of points in the path.
-  /// You can decode it by using [VietmapPolylineDecoder.decodePolyline] method from [vietmap_gl_platform_interface] package.
+  /// [points] is the encoded points of the path with polyline5 encoded, which response a list of points in the path.
+  /// You can decode it by using [VietmapPolylineDecoder.decodePolyline] method from [vietmap_gl_platform_interface] package with [polyline6] params is [false].
+  /// It will return a list of [LatLng] that you can use to draw the path on the map.
+  ///
   String? points;
 
   /// [instructions] is the instructions of the path, which response a list of instructions in the path.
   /// You can use it to display the instructions to the user.
   List<InstructionModel>? instructions;
+
+  /// return a list of [LatLng] that decoded from [points] property. You can use it to draw the path on the map.
+  List<LatLng>? pointsLatLng;
 
   /// [snappedWaypoints] is the snapped waypoints of the path, which response a list of snapped waypoints in the path.
   String? snappedWaypoints;
@@ -54,6 +60,7 @@ class Paths {
       this.transfers,
       this.pointsEncoded,
       this.bbox,
+      this.pointsLatLng,
       this.points,
       this.instructions,
       this.snappedWaypoints});

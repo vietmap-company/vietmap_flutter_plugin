@@ -1,3 +1,5 @@
+import 'package:vietmap_gl_platform_interface/vietmap_gl_platform_interface.dart';
+
 import '../../domain/entities/vietmap_routing.dart';
 
 // VietMapRoutingModel is a model class that is used to parse the response
@@ -58,6 +60,9 @@ class PathModel extends Paths {
       });
     }
     snappedWaypoints = json['snapped_waypoints'];
+    if (points != null) {
+      pointsLatLng = VietmapPolylineDecoder.decodePolyline(points!, false);
+    }
   }
 
   Map<String, dynamic> toJson() {

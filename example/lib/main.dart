@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:vietmap_flutter_gl/vietmap_flutter_gl.dart';
 import 'package:vietmap_flutter_plugin/vietmap_flutter_plugin.dart';
-import 'package:vietmap_gl_platform_interface/vietmap_gl_platform_interface.dart';
 
 void main() {
   runApp(const MyApp());
@@ -36,7 +35,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Vietmap flutter plugin demo'),
     );
   }
 }
@@ -71,18 +70,14 @@ class _MyHomePageState extends State<MyHomePage> {
     Vietmap.reverse(const LatLng(21.027763, 105.834160));
     Vietmap.place('Place ID');
     var routingResponse = await Vietmap.routing(VietMapRoutingParams(points: [
-      const LatLng(21.027763, 105.834160),
-      const LatLng(21.027763, 105.834160)
+      const LatLng(10.779391, 106.624833),
+      const LatLng(10.741039, 106.672116)
     ]));
     routingResponse.fold((Failure failure) {
       // handle failure here
     }, (VietMapRoutingModel success) {
       if (success.paths?.isNotEmpty == true &&
-          success.paths![0].points?.isNotEmpty == true) {
-        /// import this [import 'package:vietmap_gl_platform_interface/vietmap_gl_platform_interface.dart';] package
-        List<LatLng> points =
-            VietmapPolylineDecoder.decodePolyline(success.paths![0].points!);
-      }
+          success.paths![0].points?.isNotEmpty == true) {}
     });
     Vietmap.getVietmapStyleUrl();
   }
@@ -119,7 +114,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         },
                         trackCameraPosition: true,
                         myLocationEnabled: true,
-                        myLocationTrackingMode: MyLocationTrackingMode.Tracking,
+                        myLocationRenderMode: MyLocationRenderMode.COMPASS,
+                        myLocationTrackingMode:
+                            MyLocationTrackingMode.TrackingCompass,
                         initialCameraPosition: const CameraPosition(
                             target: LatLng(21.027763, 105.834160), zoom: 7),
                         styleString: Vietmap.getVietmapStyleUrl()),
