@@ -9,4 +9,5 @@ jobs:
   publish:
     permissions:
       id-token: write # Required for authentication using OIDC
-    uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
+    # uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
+    uses: vietmap-company/vietmap_flutter_plugin/.github/workflows/publish.yml@main
