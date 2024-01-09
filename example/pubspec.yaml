@@ -37,7 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.2
 
   vietmap_flutter_plugin:
-    path: ../../vietmap_apis
+    path: ../
   vietmap_flutter_gl: ^1.3.6
 
 
