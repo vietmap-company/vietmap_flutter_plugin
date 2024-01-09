@@ -1,3 +1,5 @@
+## 0.1.3, Jan 09, 2024
+* Update `README.md`
 ## 0.1.2, Jan 08, 2024
 * Add `pointsLatLng` property for `Paths` class, this property return list of `LatLng` of `Paths` object.
 ## 0.1.1, Jan 05, 2024
