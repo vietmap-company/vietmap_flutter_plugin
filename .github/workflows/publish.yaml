@@ -1,8 +1,7 @@
 on:
-  push:
-    tags:
-      - 'v[0-9]+.[0-9]+.[0-9]+*'
-
+  release:
+    branches:
+      - master
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -11,7 +10,7 @@ jobs:
       - name: Install Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.3.3'
+          flutter-version: '3.13.9'
       - name: Install dependencies
         run: flutter pub get
       - name: Analyze
@@ -20,6 +19,8 @@ jobs:
         run: flutter test
       - name: Format code
         run: dart format --fix .
+      - name: Fix imports
+        run: dart fix --apply
       - name: Check Publish Warnings
         run: dart pub publish --dry-run
       - name: Publish
