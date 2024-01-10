@@ -16,7 +16,4 @@ jobs:
     uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
     # uses: vietmap-company/vietmap_flutter_plugin/.github/workflows/publish.yml@main
     with:
-        flutter-version: 3.13.9
-        channel: stable
-        cache: true
         environment: pub.dev
