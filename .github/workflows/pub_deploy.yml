@@ -3,13 +3,13 @@ name: Publish top-level plugin to pub.dev
 on:
   push:
     tags:
-      - 'pub-vietmap_flutter_plugin-[0-9]+.[0-9]+.[0-9]+*'
+      - 'v[0-9]+.[0-9]+.[0-9]+*'
 
 jobs:
   publish:
     permissions:
       id-token: write # Required for authentication using OIDC
-    uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
+    uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1 
     # uses: vietmap-company/vietmap_flutter_plugin/.github/workflows/publish.yml@main
     with:
         cache: false
