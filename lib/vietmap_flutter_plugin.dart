@@ -32,6 +32,7 @@ export 'src/data/models/vietmap_autocomplete_model.dart'
 export 'src/data/models/vietmap_routing_model.dart' show VietMapRoutingModel;
 export 'src/data/models/vietmap_place_model.dart' show VietmapPlaceModel;
 export 'src/data/models/vietmap_reverse_model.dart' show VietmapReverseModel;
+export 'src/data/models/vietmap_boundaries_model.dart' show VietmapBoundaries;
 
 export 'package:dartz/dartz.dart' show Either, Left, Right;
 

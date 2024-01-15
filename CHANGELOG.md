@@ -1,3 +1,6 @@
+## 0.1.4, Jan 15, 2024
+* Create & exported `VietmapBoundaries` class
+* Update `categories` and `boundaries` field for `VietmapAutoCompleteModel` and `VietmapReverseModel` class.
 ## 0.1.3, Jan 09, 2024
 * Update `README.md`
 ## 0.1.2, Jan 08, 2024
