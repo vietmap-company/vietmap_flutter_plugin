@@ -85,7 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     /// Must call this method before use Vietmap APIs.
-    Vietmap.getInstance('YOUR_API_KEY_HERE');
+    Vietmap.getInstance("YOUR_API_KEY_HERE");
     super.initState();
   }
 
@@ -148,10 +148,36 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: _incrementCounter,
-          tooltip: 'Increment',
-          child: const Icon(Icons.add),
+        floatingActionButton: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            FloatingActionButton(
+              onPressed: () async {
+                var res = await Vietmap.autocomplete(
+                    VietMapAutoCompleteParams(textSearch: 'Hue'));
+                res.fold((l) => {}, (r) {
+                  print(r.first.toJson());
+                });
+              },
+              child: Icon(Icons.list),
+            ),
+            const SizedBox(height: 10),
+            FloatingActionButton(
+                onPressed: () async {
+                  var res = await Vietmap.reverse(
+                      const LatLng(11.94512696144, 106.816722168));
+                  res.fold((l) => {}, (r) {
+                    print(r.toJson());
+                  });
+                },
+                child: const Icon(Icons.location_on)),
+            const SizedBox(height: 10),
+            FloatingActionButton(
+              onPressed: _incrementCounter,
+              tooltip: 'Increment',
+              child: const Icon(Icons.add),
+            ),
+          ],
         ), // This trailing comma makes auto-formatting nicer for build methods.
       ),
     );

@@ -1,4 +1,7 @@
+import 'package:vietmap_flutter_plugin/vietmap_flutter_plugin.dart';
+
 import '../../domain/entities/vietmap_model.dart';
+import 'vietmap_boundaries_model.dart';
 
 // VietmapAutocompleteModel is a model class that is used to parse the response
 // from the server.
@@ -6,19 +9,37 @@ class VietmapAutocompleteModel extends VietmapModel {
   /// [refId] is the reference id of the place.
   String? refId;
 
+  num? distance;
+
+  List<String?>? categories;
+
+  List<VietmapBoundaries?>? boundaries;
+
   VietmapAutocompleteModel({
     this.refId,
+    this.distance,
+    this.categories,
+    this.boundaries,
     super.address,
     super.name,
     super.display,
   });
 
   /// [fromJson] is a method that is used to parse the response from the server.
-  VietmapAutocompleteModel.fromJson(Map<String, dynamic> json) {
-    refId = json['ref_id'];
-    address = json['address'];
-    name = json['name'];
-    display = json['display'];
+  factory VietmapAutocompleteModel.fromJson(Map<String, dynamic> json) {
+    return VietmapAutocompleteModel(
+        refId: json['ref_id'],
+        distance: json['distance'],
+        address: json['address'],
+        name: json['name'],
+        display: json['display'],
+        categories: json['categories'] != null
+            ? List<String?>.from(json['categories'])
+            : [],
+        boundaries: json['boundaries'] != null
+            ? List<VietmapBoundaries?>.from(
+                json['boundaries'].map((x) => VietmapBoundaries.fromJson(x)))
+            : []);
   }
 
   /// [toJson] is a method that is used to convert the object to a json object.
@@ -28,6 +49,8 @@ class VietmapAutocompleteModel extends VietmapModel {
     data['address'] = address;
     data['name'] = name;
     data['display'] = display;
+    data['categories'] = categories;
+    data['boundaries'] = boundaries?.map((e) => e?.toJson()).toList();
     return data;
   }
 
