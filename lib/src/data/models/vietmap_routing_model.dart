@@ -6,11 +6,12 @@ import '../../domain/entities/vietmap_routing.dart';
 // from the server.
 class VietMapRoutingModel extends VietMapRouting {
   VietMapRoutingModel({
-    required String? license,
-    required String? code,
-    required String? messages,
-    required List<PathModel>? paths,
-  }) : super(license: license, code: code, messages: messages, paths: paths);
+    super.license,
+    super.code,
+    super.messages,
+    super.paths,
+  });
+  // : super(license: license, code: code, messages: messages, paths: paths);
   factory VietMapRoutingModel.copyWith(VietMapRoutingModel? model) {
     return VietMapRoutingModel(
       license: model?.license,

@@ -1,5 +1,7 @@
 // ignore_for_file: unused_local_variable
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:vietmap_flutter_gl/vietmap_flutter_gl.dart';
 import 'package:vietmap_flutter_plugin/vietmap_flutter_plugin.dart';
@@ -156,10 +158,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 var res = await Vietmap.autocomplete(
                     VietMapAutoCompleteParams(textSearch: 'Hue'));
                 res.fold((l) => {}, (r) {
-                  print(r.first.toJson());
+                  log(r.first.toJson().toString());
                 });
               },
-              child: Icon(Icons.list),
+              child: const Icon(Icons.list),
             ),
             const SizedBox(height: 10),
             FloatingActionButton(
@@ -167,7 +169,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   var res = await Vietmap.reverse(
                       const LatLng(11.94512696144, 106.816722168));
                   res.fold((l) => {}, (r) {
-                    print(r.toJson());
+                    log(r.toJson().toString());
                   });
                 },
                 child: const Icon(Icons.location_on)),
