@@ -1,6 +1,5 @@
 import 'package:vietmap_flutter_plugin/vietmap_flutter_plugin.dart';
 
-
 // VietmapAutocompleteModel is a model class that is used to parse the response
 // from the server.
 class VietmapAutocompleteModel extends VietmapModel {
