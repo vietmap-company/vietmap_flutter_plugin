@@ -1,4 +1,6 @@
+import 'package:vietmap_flutter_plugin/src/data/models/vietmap_matrix_model.dart';
 import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_autocomplete_params.dart';
+import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_matrix_params.dart';
 
 import '../../core/failures/failure.dart';
 import '../../domain/entities/vietmap_routing_params.dart';
@@ -27,5 +29,10 @@ abstract class VietmapApiRepository {
   // Get autocomplete from address
   Future<Either<Failure, List<VietmapAutocompleteModel>>> geoCode(
     VietMapAutoCompleteParams params,
+  );
+
+  /// Get matrix api from vietmap
+  Future<Either<Failure, VietmapMatrixModel>> matrix(
+    VietmapMatrixParams params,
   );
 }

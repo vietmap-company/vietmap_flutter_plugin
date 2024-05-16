@@ -1,6 +1,7 @@
 import 'package:vietmap_flutter_plugin/src/domain/repository/vietmap_api_repositories.dart';
 import 'package:vietmap_flutter_plugin/src/domain/usecase/geocode_usecase.dart';
 import 'package:vietmap_flutter_plugin/src/domain/usecase/get_location_from_latlng_usecase.dart';
+import 'package:vietmap_flutter_plugin/src/domain/usecase/matrix_usecase.dart';
 
 import '../../vietmap_flutter_plugin.dart';
 import '../domain/usecase/get_direction_usecase.dart';
@@ -72,6 +73,11 @@ class Vietmap {
   static Future<Either<Failure, VietmapReverseModel>> reverse(LatLng location) {
     return GetLocationFromLatLngUseCase(getVietmapApiRepositories())
         .call(LatLng(location.latitude, location.longitude));
+  }
+
+  static Future<Either<Failure, VietmapMatrixModel>> matrix(
+      VietmapMatrixParams params) {
+    return MatrixUseCase(getVietmapApiRepositories()).call(params);
   }
 
   // The Place API service endpoint provides detailed information about the

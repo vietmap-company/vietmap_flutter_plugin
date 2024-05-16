@@ -1,7 +1,12 @@
+// ignore_for_file: avoid_print
+
 import 'package:dio/dio.dart';
 import 'package:dartz/dartz.dart';
+import 'package:flutter/foundation.dart';
 import 'package:vietmap_flutter_plugin/src/core/enums/failure_enum.dart';
+import 'package:vietmap_flutter_plugin/src/data/models/vietmap_matrix_model.dart';
 import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_autocomplete_params.dart';
+import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_matrix_params.dart';
 import 'package:vietmap_flutter_plugin/src/extension/latlng_extension.dart';
 import 'package:vietmap_flutter_plugin/src/extension/string_extension.dart';
 import '../../core/failures/api_server_failure.dart';
@@ -157,6 +162,99 @@ class VietmapApiRepositories implements VietmapApiRepository {
       if (res.statusCode == 200) {
         var data = List<VietmapAutocompleteModel>.from(
             res.data.map((e) => VietmapAutocompleteModel.fromJson(e)));
+        return Right(data);
+      } else if (res.statusCode == 429) {
+        return Left(APIKeyLimitedFailure(
+            message: 'API key đã đạt giới hạn lượng truy cập hôm nay',
+            code: FailureCode.limitExceedFailure));
+      } else {
+        return const Left(ApiServerFailure('Có lỗi xảy ra'));
+      }
+    } on DioException catch (ex) {
+      if (ex.type == DioExceptionType.receiveTimeout) {
+        return Left(ApiTimeOutFailure());
+      } else {
+        return Left(ExceptionFailure(ex));
+      }
+    }
+  }
+
+  @override
+  Future<Either<Failure, VietmapMatrixModel>> matrix(
+      VietmapMatrixParams params) async {
+    try {
+      var pointsLength = params.points.length;
+      for (var element in params.destinationPoints) {
+        if (element > pointsLength - 1) {
+          return Left(ExceptionFailure(
+              Exception('Invalid input destination point index')));
+        }
+      }
+      for (var element in params.sourcePoints) {
+        if (element > pointsLength - 1) {
+          return Left(ExceptionFailure(
+              Exception('Invalid input destination point index')));
+        }
+      }
+      Map<String, dynamic> queryParams = {
+        'apikey': Vietmap.getVietmapAPIKey(),
+        'api-version': params.apiVersion,
+        'sources': params.sourcePoints.join(';'),
+        'destinations': params.destinationPoints.join(';')
+      };
+      String path = queryParams.toString();
+      path = path.convertJsonToUrlPath();
+      for (var element in params.points) {
+        path += '&point=${element.toUrlValue()}';
+      }
+      var res = await _dio.get('matrix?$path');
+
+      if (res.statusCode == 200) {
+        var data = VietmapMatrixModel.fromJson(res.data);
+        if (params.isShowTablePreview && kDebugMode) {
+          int i = 0;
+          String distanceTableTitle = '         |';
+          List<String> distanceTableLine = [];
+          int ii = 0;
+          List<String> durationTableLine = [];
+          for (var element in data.distances ?? []) {
+            int j = 0;
+            String line = 'Point ${params.sourcePoints[i]}  |';
+            for (var e in element) {
+              if (i == 0) {
+                distanceTableTitle +=
+                    '|   Point ${params.destinationPoints[j++]}   |';
+              }
+              line += '|    $e m   |';
+            }
+            distanceTableLine.add(line);
+            i++;
+          }
+          for (var element in data.durations ?? []) {
+            String line = 'Point ${params.sourcePoints[ii]}  |';
+            for (var e in element) {
+              line += '|    $e s    |';
+            }
+            durationTableLine.add(line);
+            ii++;
+          }
+
+          print('Distance table');
+          print('-----------------------------------------------------');
+          print(distanceTableTitle);
+          for (var element in distanceTableLine) {
+            print('-----------------------------------------------------');
+            print(element);
+          }
+          print('-----------------------------------------------------');
+          print('Duration table');
+          print('-----------------------------------------------------');
+          print(distanceTableTitle);
+          for (var element in durationTableLine) {
+            print('-----------------------------------------------------');
+            print(element);
+          }
+        }
         return Right(data);
       } else if (res.statusCode == 429) {
         return Left(APIKeyLimitedFailure(
