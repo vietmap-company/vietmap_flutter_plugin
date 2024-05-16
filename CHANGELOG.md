@@ -1,3 +1,5 @@
+## 0.2.0, May 16, 2024
+* Add `matrix` api
 ## 0.1.4, Jan 15, 2024
 * Create & export `VietmapBoundaries` class
 * Update the `categories` and `boundaries` fields for the `VietmapAutoCompleteModel` and `VietmapReverseModel` class

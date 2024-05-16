@@ -45,3 +45,5 @@ export 'src/extension/string_extension.dart' show StringExtension;
 export 'src/domain/entities/vietmap_model.dart' show VietmapModel;
 export 'src/domain/entities/vietmap_routing.dart'
     show VietMapRouting, Paths, Instructions;
+export 'src/data/models/vietmap_matrix_model.dart';
+export 'src/domain/entities/vietmap_matrix_params.dart';

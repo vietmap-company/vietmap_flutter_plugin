@@ -179,6 +179,31 @@ class _MyHomePageState extends State<MyHomePage> {
               tooltip: 'Increment',
               child: const Icon(Icons.add),
             ),
+            FloatingActionButton(
+                onPressed: () async {
+                  var res = await Vietmap.matrix(VietmapMatrixParams(
+                      points: [
+                        const LatLng(10.768897, 106.678505),
+                        const LatLng(10.765496, 106.67626),
+                        const LatLng(10.7627936, 106.6750729),
+                        const LatLng(10.7616745, 106.6792425),
+                        const LatLng(10.765605, 106.685383),
+                      ],
+                      sourcePoints: [0, 1],
+                      isShowTablePreview: true,
+                      destinationPoints: [
+                        2,
+                        3,
+                        4,
+                      ]));
+                },
+                child: const Icon(Icons.location_on)),
+            const SizedBox(height: 10),
+            FloatingActionButton(
+              onPressed: _incrementCounter,
+              tooltip: 'Increment',
+              child: const Icon(Icons.add),
+            ),
           ],
         ), // This trailing comma makes auto-formatting nicer for build methods.
       ),

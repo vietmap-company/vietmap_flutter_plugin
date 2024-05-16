@@ -46,6 +46,20 @@ or run this command in the terminal to add the library to the project:
     /// This function is used to get the style url of Vietmap,
     /// which provide the style of the map for VietmapGL plugin.
     Vietmap.getVietmapStyleUrl();
+    Vietmap.matrix(VietmapMatrixParams(
+      points: [
+        const LatLng(10.768897, 106.678505),
+        const LatLng(10.765496, 106.67626),
+        const LatLng(10.7627936, 106.6750729),
+        const LatLng(10.7616745, 106.6792425),
+        const LatLng(10.765605, 106.685383),
+      ],
+      sourcePoints: [0, 1],
+      isShowTablePreview: true,
+      destinationPoints: [
+        2, 3, 4,
+    ]));
+                
 ```
 
 

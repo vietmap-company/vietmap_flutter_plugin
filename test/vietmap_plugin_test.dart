@@ -7,20 +7,47 @@ Future<void> main() async {
   String? apikey = dotenv.env['VIETMAP_API_KEY'];
   group('Test Vietmap APIs', () {
     test('API key should not be null', () {
-      expect(apikey, isNotNull);
+      expect(apikey, isNotEmpty);
       Vietmap.getInstance(apikey!);
     });
 
     test('Test autocomplete function', () async {
       var res = await Vietmap.autocomplete(
           VietMapAutoCompleteParams(textSearch: 'Vietmap'));
-      res.fold((l) => false, (r) => expect(r, isList));
+      res.fold(
+          (l) => false,
+          (r) =>
+              expect(r, const TypeMatcher<List<VietmapAutocompleteModel>>()));
     });
 
     test('Test geocode function', () async {
       var res = await Vietmap.geoCode(
           VietMapAutoCompleteParams(textSearch: 'Hà Nội'));
-      res.fold((l) => false, (r) => expect(r, isList));
+      res.fold(
+          (l) => false,
+          (r) =>
+              expect(r, const TypeMatcher<List<VietmapAutocompleteModel>>()));
+    });
+
+    test('Test matrix function', () async {
+      var res = await Vietmap.matrix(VietmapMatrixParams(points: [
+        const LatLng(10.768897, 106.678505),
+        const LatLng(10.765496, 106.67626),
+        const LatLng(10.7627936, 106.6750729),
+        const LatLng(10.7616745, 106.6792425),
+        const LatLng(10.765605, 106.685383),
+      ], sourcePoints: [
+        0,
+        1
+      ], destinationPoints: [
+        2,
+        3,
+        4
+      ]));
+
+      res.fold((l) => false, (r) {
+        expect(r, const TypeMatcher<VietmapMatrixModel>());
+      });
     });
     test('Test reverse function', () async {
       var res = await Vietmap.reverse(const LatLng(21.027763, 105.834160));
