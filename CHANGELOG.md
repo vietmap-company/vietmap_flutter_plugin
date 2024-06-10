@@ -1,3 +1,5 @@
+## 0.3.0, Jun 10, 2024
+* Upgrade `vietmap_gl_platform_interface` to `0.2.0`
 ## 0.2.0, May 16, 2024
 * Add `matrix` api
 ## 0.1.4, Jan 15, 2024

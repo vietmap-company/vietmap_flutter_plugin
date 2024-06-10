@@ -75,6 +75,8 @@ class Vietmap {
         .call(LatLng(location.latitude, location.longitude));
   }
 
+  // The Matrix API calculate many-to-many distances and times a lot more
+  // efficient than calling the Routing API multiple times
   static Future<Either<Failure, VietmapMatrixModel>> matrix(
       VietmapMatrixParams params) {
     return MatrixUseCase(getVietmapApiRepositories()).call(params);

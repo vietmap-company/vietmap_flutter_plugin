@@ -13,9 +13,13 @@ class VietmapMatrixParams {
   /// List index of the source point inside list points
   final List<int> sourcePoints;
 
-  /// List index of the source point inside the list points
+  /// List index of the destination point inside the list points
   final List<int> destinationPoints;
+
+  /// Print the table in the debug console
   final bool isShowTablePreview;
+
+  /// Matrix api params
   VietmapMatrixParams(
       {required this.points,
       this.isShowTablePreview = false,

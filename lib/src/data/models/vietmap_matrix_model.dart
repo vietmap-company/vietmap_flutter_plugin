@@ -4,6 +4,7 @@ class VietmapMatrixModel {
   List<List<num>>? durations;
   List<List<num>>? distances;
 
+  /// 
   VietmapMatrixModel(
       {this.code, this.messages, this.durations, this.distances});
 
