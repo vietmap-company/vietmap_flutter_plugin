@@ -196,6 +196,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         3,
                         4,
                       ]));
+                  res.fold((l) => null, (r) => null);
                 },
                 child: const Icon(Icons.location_on)),
             const SizedBox(height: 10),
