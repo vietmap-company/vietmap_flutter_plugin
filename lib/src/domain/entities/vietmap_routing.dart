@@ -1,4 +1,5 @@
-import '../../../vietmap_flutter_plugin.dart';
+import 'package:vietmap_gl_platform_interface/vietmap_gl_platform_interface.dart';
+
 import '../../data/models/vietmap_routing_model.dart';
 
 /// VietmapRouting is a model which contains the information of a VietmapRouting response.
