@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
-        //
+        //! HafezCodex : github.com/x-brymo
         // TRY THIS: Try running your application with "flutter run". You'll see
         // the application has a blue toolbar. Then, without quitting the app,
         // try changing the seedColor in the colorScheme below to Colors.green
@@ -116,9 +116,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         },
                         trackCameraPosition: true,
                         myLocationEnabled: true,
-                        myLocationRenderMode: MyLocationRenderMode.COMPASS,
+                        myLocationRenderMode: MyLocationRenderMode.compass,
                         myLocationTrackingMode:
-                            MyLocationTrackingMode.TrackingCompass,
+                            MyLocationTrackingMode.trackingCompass,
                         initialCameraPosition: const CameraPosition(
                             target: LatLng(21.027763, 105.834160), zoom: 7),
                         styleString: Vietmap.getVietmapStyleUrl()),
