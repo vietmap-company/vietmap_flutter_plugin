@@ -1,7 +1,13 @@
+import 'package:vietmap_flutter_plugin/src/data/models/vietmap_autocomplete_model_v4.dart';
+import 'package:vietmap_flutter_plugin/src/data/models/vietmap_reverse_model_v4.dart';
+import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_autocomplete_param_v4.dart';
+import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_reverse_params.dart';
 import 'package:vietmap_flutter_plugin/src/domain/repository/vietmap_api_repositories.dart';
+import 'package:vietmap_flutter_plugin/src/domain/usecase/autocomplete_location_usecase.dart';
 import 'package:vietmap_flutter_plugin/src/domain/usecase/geocode_usecase.dart';
 import 'package:vietmap_flutter_plugin/src/domain/usecase/get_location_from_latlng_usecase.dart';
 import 'package:vietmap_flutter_plugin/src/domain/usecase/matrix_usecase.dart';
+import 'package:vietmap_flutter_plugin/src/domain/usecase/reverse_location_from_latlng_usecase.dart';
 
 import '../../vietmap_flutter_plugin.dart';
 import '../domain/usecase/get_direction_usecase.dart';
@@ -55,13 +61,30 @@ class Vietmap {
   // developers to integrate autocomplete functionality into their applications.
   // This API is designed to help users quickly find and select items from a
   // large set of options by suggesting potential matches as they type.
-  //The API is built on a machine learning model that analyzes user input and
+  // The API is built on a machine learning model that analyzes user input and
   // suggests potential matches based on the context of the search. This model
   // can be updated in real-time, allowing the API to continuously improve its
   // suggestions as more data becomes available
+  @Deprecated(
+      'Migrate VietMap API from v3 to v4. Use autocomplete instead. See https://maps.vietmap.vn/docs/map-api/autocomplete-version/autocomplete-v4')
   static Future<Either<Failure, List<VietmapAutocompleteModel>>> autocomplete(
       VietMapAutoCompleteParams params) {
     return SearchAddressUseCase(getVietmapApiRepositories()).call(params);
+  }
+
+  // Updating Autocomplete 4.0 API is a valuable resources that allows
+  // developers to integrate autocomplete functionality into their applications.
+  // This API is designed to help users quickly find and select items from a
+  // large set of options by suggesting potential matches as they type.
+  // The API is built on a machine learning model that analyzes user input and
+  // suggests potential matches based on the context of the search. This model
+  // can be updated in real-time, allowing the API to continuously improve its
+  // suggestions as more data becomes available
+  // See more at https://maps.vietmap.vn/docs/map-api/autocomplete-version/autocomplete-v4
+  static Future<Either<Failure, List<VietmapAutocompleteModelV4>>> autocompleteV4(
+      VietmapAutocompleteParamsV4 params) {
+    return AutocompleteLocationUsecase(getVietmapApiRepositories())
+        .call(params);
   }
 
   // Updating Reverse 3.0 API is a valuable resource for developers who want to
@@ -70,9 +93,28 @@ class Vietmap {
   // and techniques, this latest version can swiftly deliver precise search
   // results for users. This API is a powerful tool that can help enhance the
   // user experience of location-based applications.
+  @Deprecated(
+      'Migrate VietMap API from v3 to v4. Use reverse instead. See https://maps.vietmap.vn/docs/map-api/reverse-version/reverse-v4')
   static Future<Either<Failure, VietmapReverseModel>> reverse(LatLng location) {
     return GetLocationFromLatLngUseCase(getVietmapApiRepositories())
         .call(LatLng(location.latitude, location.longitude));
+  }
+
+  // Updating Reverse 4.0 API is a valuable resource for developers who want to
+  // incorporate location search features into their applications while
+  // achieving optimal performance. With its intelligent search algorithms
+  // and techniques, this latest version can swiftly deliver precise search
+  // results for users. This API is a powerful tool that can help enhance the
+  // user experience of location-based applications.
+  // This version supports new administrative format (2 levels: ward, city)
+  // and old administrative format (3 levels: ward, district, city).
+  // You can choose display type via [VietmapReverseParams.displayType]
+  // Responses can include data_old/data_new to carry the alternate format.
+  // See more at https://maps.vietmap.vn/docs/map-api/reverse-version/reverse-v4
+  static Future<Either<Failure, VietmapReverseModelV4>> reverseV4(
+      VietmapReverseParams params) {
+    return ReverseLocationFromLatlngUsecase(getVietmapApiRepositories())
+        .call(params);
   }
 
   // The Matrix API calculate many-to-many distances and times a lot more

@@ -4,7 +4,10 @@ import 'package:dio/dio.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
 import 'package:vietmap_flutter_plugin/src/core/enums/failure_enum.dart';
+import 'package:vietmap_flutter_plugin/src/data/models/vietmap_autocomplete_model_v4.dart';
 import 'package:vietmap_flutter_plugin/src/data/models/vietmap_matrix_model.dart';
+import 'package:vietmap_flutter_plugin/src/data/models/vietmap_reverse_model_v4.dart';
+import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_autocomplete_param_v4.dart';
 import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_autocomplete_params.dart';
 import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_matrix_params.dart';
 import 'package:vietmap_flutter_plugin/src/extension/latlng_extension.dart';
@@ -57,6 +60,36 @@ class VietmapApiRepositories implements VietmapApiRepository {
   }
 
   @override
+  Future<Either<Failure, VietmapReverseModelV4>> reverseLocationFromLatLng(
+      {required double lat, required double long, int? displayType}) async {
+    try {
+      var res = await _dio.get('reverse/v4', queryParameters: {
+        'apikey': apiKey,
+        'lat': lat,
+        'lng': long,
+        if (displayType != null) 'display_type': displayType
+      });
+
+      if (res.statusCode == 200 && res.data.length > 0) {
+        var data = VietmapReverseModelV4.fromJson(res.data[0]);
+        return Right(data);
+      } else if (res.statusCode == 429) {
+        return Left(APIKeyLimitedFailure(
+            message: 'API key đã đạt giới hạn lượng truy cập hôm nay',
+            code: FailureCode.limitExceedFailure));
+      } else {
+        return const Left(ApiServerFailure('Có lỗi xảy ra'));
+      }
+    } on DioException catch (ex) {
+      if (ex.type == DioExceptionType.receiveTimeout) {
+        return Left(ApiTimeOutFailure());
+      } else {
+        return Left(ExceptionFailure(ex));
+      }
+    }
+  }
+
+  @override
   Future<Either<Failure, List<VietmapAutocompleteModel>>> searchLocation(
       VietMapAutoCompleteParams params) async {
     try {
@@ -72,6 +105,36 @@ class VietmapApiRepositories implements VietmapApiRepository {
       if (res.statusCode == 200) {
         var data = List<VietmapAutocompleteModel>.from(
             res.data.map((e) => VietmapAutocompleteModel.fromJson(e)));
+        return Right(data);
+      } else if (res.statusCode == 429) {
+        return Left(APIKeyLimitedFailure(
+            message: 'API key đã đạt giới hạn lượng truy cập hôm nay',
+            code: FailureCode.limitExceedFailure));
+      } else {
+        return const Left(ApiServerFailure('Có lỗi xảy ra'));
+      }
+    } on DioException catch (ex) {
+      if (ex.type == DioExceptionType.receiveTimeout) {
+        return Left(ApiTimeOutFailure());
+      } else {
+        return Left(ExceptionFailure(ex));
+      }
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<VietmapAutocompleteModelV4>>>
+      autocompleteLocation(VietmapAutocompleteParamsV4 params) async {
+    try {
+      final queryParams = {'apikey': apiKey, ...params.toQueryParam()};
+      var res = await _dio.get(
+        'autocomplete/v4',
+        queryParameters: queryParams,
+      );
+
+      if (res.statusCode == 200) {
+        var data = List<VietmapAutocompleteModelV4>.from(
+            res.data.map((e) => VietmapAutocompleteModelV4.fromJson(e)));
         return Right(data);
       } else if (res.statusCode == 429) {
         return Left(APIKeyLimitedFailure(

@@ -6,10 +6,13 @@ class VietmapAutocompleteModel extends VietmapModel {
   /// [refId] is the reference id of the place.
   String? refId;
 
+  /// [distance] is the distance of the place from the location of the user.
   num? distance;
 
+  /// [categories] list containing categories associated with the POI.
   List<String?>? categories;
 
+  /// [boundaries] list containing boundary information (ward, district, city).
   List<VietmapBoundaries?>? boundaries;
 
   VietmapAutocompleteModel({
