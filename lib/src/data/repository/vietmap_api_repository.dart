@@ -2,7 +2,7 @@ import 'package:vietmap_flutter_plugin/src/data/models/vietmap_autocomplete_mode
 import 'package:vietmap_flutter_plugin/src/data/models/vietmap_matrix_model.dart';
 import 'package:vietmap_flutter_plugin/src/data/models/vietmap_migrate_address_model.dart';
 import 'package:vietmap_flutter_plugin/src/data/models/vietmap_reverse_model_v4.dart';
-import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_autocomplete_param_v4.dart';
+import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_autocomplete_params_v4.dart';
 import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_autocomplete_params.dart';
 import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_matrix_params.dart';
 import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_migrate_address_params.dart';

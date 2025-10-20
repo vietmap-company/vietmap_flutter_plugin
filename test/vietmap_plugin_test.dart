@@ -1,12 +1,12 @@
 import 'package:flutter/rendering.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:vietmap_flutter_plugin/src/core/enums/autocomplete_display_type.dart';
-import 'package:vietmap_flutter_plugin/src/core/enums/migrate_type.dart';
-import 'package:vietmap_flutter_plugin/src/core/enums/tile_map_type.dart';
+import 'package:vietmap_flutter_plugin/src/core/enums/autocomplete_display_enum.dart';
+import 'package:vietmap_flutter_plugin/src/core/enums/migrate_enum.dart';
+import 'package:vietmap_flutter_plugin/src/core/enums/tilemap_enum.dart';
 import 'package:vietmap_flutter_plugin/src/data/models/vietmap_autocomplete_model_v4.dart';
 import 'package:vietmap_flutter_plugin/src/data/models/vietmap_migrate_address_model.dart';
-import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_autocomplete_param_v4.dart';
+import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_autocomplete_params_v4.dart';
 import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_migrate_address_params.dart';
 import 'package:vietmap_flutter_plugin/vietmap_flutter_plugin.dart';
 
@@ -106,7 +106,7 @@ Future<void> main() async {
     test('Test geoCodeV4 with newFormat display type', () async {
       var res = await Vietmap.geoCodeV4(VietmapAutocompleteParamsV4(
         text: 'Công Ty Cổ Phần Ứng Dụng Bản Đồ Việt',
-        displayType: AutocompleteDisplayType.newFormat.value,
+        displayType: AutocompleteDisplayEnum.newFormat.value,
       ));
       res.fold((l) {
         debugPrint((l as ExceptionFailure).message.toString());
@@ -120,7 +120,7 @@ Future<void> main() async {
     test('Test geoCodeV4 with oldFormat display type', () async {
       var res = await Vietmap.geoCodeV4(VietmapAutocompleteParamsV4(
         text: 'Hà Nội',
-        displayType: AutocompleteDisplayType.oldFormat.value,
+        displayType: AutocompleteDisplayEnum.oldFormat.value,
       ));
       res.fold((l) {
         debugPrint((l as ExceptionFailure).message.toString());
@@ -134,7 +134,7 @@ Future<void> main() async {
     test('Test geoCodeV4 with asInputFormat display type', () async {
       var res = await Vietmap.geoCodeV4(VietmapAutocompleteParamsV4(
         text: 'Tp Hồ Chí Minh',
-        displayType: AutocompleteDisplayType.asInputFormat.value,
+        displayType: AutocompleteDisplayEnum.asInputFormat.value,
       ));
       res.fold((l) {
         debugPrint((l as ExceptionFailure).message.toString());
@@ -148,7 +148,7 @@ Future<void> main() async {
     test('Test geoCodeV4 with bothNewAndOld display type', () async {
       var res = await Vietmap.geoCodeV4(VietmapAutocompleteParamsV4(
         text: 'Đà Nẵng',
-        displayType: AutocompleteDisplayType.bothNewAndOld.value,
+        displayType: AutocompleteDisplayEnum.bothNewAndOld.value,
       ));
       res.fold((l) {
         debugPrint((l as ExceptionFailure).message.toString());
@@ -162,7 +162,7 @@ Future<void> main() async {
     test('Test geoCodeV4 with bothOldAndNew display type', () async {
       var res = await Vietmap.geoCodeV4(VietmapAutocompleteParamsV4(
         text: 'Cần Thơ',
-        displayType: AutocompleteDisplayType.bothOldAndNew.value,
+        displayType: AutocompleteDisplayEnum.bothOldAndNew.value,
       ));
       res.fold((l) {
         debugPrint((l as ExceptionFailure).message.toString());
@@ -457,7 +457,7 @@ Future<void> main() async {
       var res = await Vietmap.geoCodeV4(VietmapAutocompleteParamsV4(
         text: 'Công Ty Cổ Phần Ứng Dụng Bản Đồ Việt',
         focusLocation: const LatLng(10.759540242000032, 106.67660114000005),
-        displayType: AutocompleteDisplayType.newFormat.value,
+        displayType: AutocompleteDisplayEnum.newFormat.value,
         layers: 'POI,ADDRESS',
         circleCenter: const LatLng(10.758867051669924, 106.6755666901197),
         circleRadius: 1000,
@@ -884,7 +884,7 @@ Future<void> main() async {
       var res = await Vietmap.migrateAddress(
         VietmapMigrateAddressParams(
           text: 'Dương Thuỷ - Lệ Thuỷ',
-          migrateType: MigrateType.oldToNew.value,
+          migrateType: MigrateEnum.oldToNew.value,
         ),
       );
       res.fold((l) {
@@ -904,7 +904,7 @@ Future<void> main() async {
     });
 
     test('Test get map style url from tilemap type', () {
-      var styleUrl = Vietmap.getMapStyle();
+      var styleUrl = Vietmap.getMapStyle(type: TileMapEnum.vectorDark);
       debugPrint(styleUrl);
       expect(styleUrl, isNotEmpty);
     });

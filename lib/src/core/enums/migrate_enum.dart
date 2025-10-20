@@ -1,4 +1,4 @@
-enum MigrateType {
+enum MigrateEnum {
   /// 1: migrate from old to new format
   oldToNew(value: 1),
 
@@ -7,5 +7,5 @@ enum MigrateType {
 
   final int value;
 
-  const MigrateType({required this.value});
+  const MigrateEnum({required this.value});
 }

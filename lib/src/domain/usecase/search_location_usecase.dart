@@ -3,7 +3,7 @@ import 'package:vietmap_flutter_plugin/src/core/failures/failure.dart';
 import 'package:vietmap_flutter_plugin/src/core/use_case.dart';
 import 'package:vietmap_flutter_plugin/src/data/models/vietmap_autocomplete_model_v4.dart';
 import 'package:vietmap_flutter_plugin/src/data/repository/vietmap_api_repository.dart';
-import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_autocomplete_param_v4.dart';
+import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_autocomplete_params_v4.dart';
 
 class SearchLocationUsecase extends UseCase<List<VietmapAutocompleteModelV4>,
     VietmapAutocompleteParamsV4> {

@@ -1,6 +1,6 @@
 import 'package:vietmap_flutter_plugin/src/data/models/vietmap_autocomplete_model_v4.dart';
 import 'package:vietmap_flutter_plugin/src/data/repository/vietmap_api_repository.dart';
-import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_autocomplete_param_v4.dart';
+import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_autocomplete_params_v4.dart';
 import 'package:vietmap_flutter_plugin/vietmap_flutter_plugin.dart';
 
 class AutocompleteLocationUsecase

@@ -1,4 +1,4 @@
-enum TileMapType {
+enum TileMapEnum {
   /// The default style for VIETMAP maps, suitable for general use.
   vectorDefault,
 

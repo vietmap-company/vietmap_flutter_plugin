@@ -1,8 +1,8 @@
-import 'package:vietmap_flutter_plugin/src/core/enums/tile_map_type.dart';
+import 'package:vietmap_flutter_plugin/src/core/enums/tilemap_enum.dart';
 import 'package:vietmap_flutter_plugin/src/data/models/vietmap_autocomplete_model_v4.dart';
 import 'package:vietmap_flutter_plugin/src/data/models/vietmap_migrate_address_model.dart';
 import 'package:vietmap_flutter_plugin/src/data/models/vietmap_reverse_model_v4.dart';
-import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_autocomplete_param_v4.dart';
+import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_autocomplete_params_v4.dart';
 import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_migrate_address_params.dart';
 import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_reverse_params.dart';
 import 'package:vietmap_flutter_plugin/src/domain/repository/vietmap_api_repositories.dart';
@@ -50,30 +50,29 @@ class Vietmap {
     return 'https://maps.vietmap.vn/api/maps/light/styles.json?apikey=$_vietmapAPIKey';
   }
 
-  
-  /// Get vietmap style url based on TileMapType. See [TileMapType] for more details.
-  static String getMapStyle({TileMapType? type}) {
+  /// Get vietmap style url based on TileMapEnum. See [TileMapEnum] for more details.
+  static String getMapStyle({TileMapEnum? type}) {
     if (_vietmapAPIKey.isEmpty) {
       throw Exception('Please call `Vietmap.getInstance(apiKey)` before use');
     }
     String style = 'https://maps.vietmap.vn/maps/styles/';
     switch (type) {
-      case TileMapType.vectorDefault:
+      case TileMapEnum.vectorDefault:
         style += 'tm/style.json';
         break;
-      case TileMapType.vectorLight:
+      case TileMapEnum.vectorLight:
         style += 'lm/style.json';
         break;
-      case TileMapType.vectorDark:
+      case TileMapEnum.vectorDark:
         style += 'dm/style.json';
         break;
-      case TileMapType.rasterDefault:
+      case TileMapEnum.rasterDefault:
         style += 'tm/tiles.json';
         break;
-      case TileMapType.rasterLight:
+      case TileMapEnum.rasterLight:
         style += 'lm/tiles.json';
         break;
-      case TileMapType.rasterDark:
+      case TileMapEnum.rasterDark:
         style += 'dm/tiles.json';
         break;
       default:

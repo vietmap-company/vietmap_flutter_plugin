@@ -1,4 +1,4 @@
-enum AutocompleteDisplayType {
+enum AutocompleteDisplayEnum {
   /// [newFormat] New merged administrative format (2 levels: ward, city).
   newFormat(value: 1),
 
@@ -16,5 +16,5 @@ enum AutocompleteDisplayType {
 
   final int value;
 
-  const AutocompleteDisplayType({required this.value});
+  const AutocompleteDisplayEnum({required this.value});
 }

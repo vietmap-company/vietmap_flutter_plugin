@@ -1,4 +1,4 @@
-enum ReverseDisplayType {
+enum ReverseDisplayEnum {
   /// [newFormat] New merged administrative format (2 levels: ward, city).
   newFormat(value: 1),
 
@@ -16,5 +16,5 @@ enum ReverseDisplayType {
 
   final int value;
 
-  const ReverseDisplayType({required this.value});
+  const ReverseDisplayEnum({required this.value});
 }
