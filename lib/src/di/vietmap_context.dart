@@ -1,13 +1,18 @@
 import 'package:vietmap_flutter_plugin/src/data/models/vietmap_autocomplete_model_v4.dart';
+import 'package:vietmap_flutter_plugin/src/data/models/vietmap_migrate_address_model.dart';
 import 'package:vietmap_flutter_plugin/src/data/models/vietmap_reverse_model_v4.dart';
 import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_autocomplete_param_v4.dart';
+import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_migrate_address_params.dart';
 import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_reverse_params.dart';
 import 'package:vietmap_flutter_plugin/src/domain/repository/vietmap_api_repositories.dart';
 import 'package:vietmap_flutter_plugin/src/domain/usecase/autocomplete_location_usecase.dart';
 import 'package:vietmap_flutter_plugin/src/domain/usecase/geocode_usecase.dart';
 import 'package:vietmap_flutter_plugin/src/domain/usecase/get_location_from_latlng_usecase.dart';
+import 'package:vietmap_flutter_plugin/src/domain/usecase/get_place_detail_v4_usecase.dart';
 import 'package:vietmap_flutter_plugin/src/domain/usecase/matrix_usecase.dart';
+import 'package:vietmap_flutter_plugin/src/domain/usecase/migrate_address_usecase.dart';
 import 'package:vietmap_flutter_plugin/src/domain/usecase/reverse_location_from_latlng_usecase.dart';
+import 'package:vietmap_flutter_plugin/src/domain/usecase/search_location_usecase.dart';
 
 import '../../vietmap_flutter_plugin.dart';
 import '../domain/usecase/get_direction_usecase.dart';
@@ -81,8 +86,8 @@ class Vietmap {
   // can be updated in real-time, allowing the API to continuously improve its
   // suggestions as more data becomes available
   // See more at https://maps.vietmap.vn/docs/map-api/autocomplete-version/autocomplete-v4
-  static Future<Either<Failure, List<VietmapAutocompleteModelV4>>> autocompleteV4(
-      VietmapAutocompleteParamsV4 params) {
+  static Future<Either<Failure, List<VietmapAutocompleteModelV4>>>
+      autocompleteV4(VietmapAutocompleteParamsV4 params) {
     return AutocompleteLocationUsecase(getVietmapApiRepositories())
         .call(params);
   }
@@ -119,6 +124,8 @@ class Vietmap {
 
   // The Matrix API calculate many-to-many distances and times a lot more
   // efficient than calling the Routing API multiple times
+  @Deprecated(
+      'Migrate VietMap API from v3 to v4. Use autocomplete instead. See https://maps.vietmap.vn/docs/map-api/autocomplete-version/autocomplete-v4')
   static Future<Either<Failure, VietmapMatrixModel>> matrix(
       VietmapMatrixParams params) {
     return MatrixUseCase(getVietmapApiRepositories()).call(params);
@@ -126,9 +133,19 @@ class Vietmap {
 
   // The Place API service endpoint provides detailed information about the
   // Place found by its identifier (refid).
+  @Deprecated(
+      'Migrate VietMap API from v3 to v4. Use autocomplete instead. See https://maps.vietmap.vn/docs/map-api/autocomplete-version/autocomplete-v4')
   static Future<Either<Failure, VietmapPlaceModel>> place(String placeId) {
     return GetPlaceDetailUseCase(getVietmapApiRepositories()).call(placeId);
   }
+
+
+  // The Place API v4 service endpoint provides detailed information about the
+  // place found by its identifier (refid).
+  static Future<Either<Failure, VietmapPlaceModel>> placeV4(String refId) {
+    return GetPlaceDetailV4Usecase(getVietmapApiRepositories()).call(refId);
+  }
+
 
   // A Route Maps API is a feature provided by VIETMAP that allows developers to
   // calculate and display the optimal route between two or more locations on
@@ -139,6 +156,8 @@ class Vietmap {
   // estimated travel time, and turn-by-turn directions. Developers can use
   // Route Maps APIs to create applications that help with navigation,
   // transportation planning, and logistics management.
+  @Deprecated(
+      'Migrate VietMap API from v3 to v4. Use autocomplete instead. See https://maps.vietmap.vn/docs/map-api/autocomplete-version/autocomplete-v4')
   static Future<Either<Failure, VietMapRoutingModel>> routing(
       VietMapRoutingParams vietMapRoutingParams) {
     return GetDirectionUseCase(getVietmapApiRepositories())
@@ -147,10 +166,31 @@ class Vietmap {
 
   // Updating Geocode 3.0 API is a powerful tool for developers to integrate
   // location search functionality into their applications with optimized
-  //performance. Additionally, this latest version utilizes intelligent search
-  //algorithms and methods to provide accurate and speedy search results for users.
+  // performance. Additionally, this latest version utilizes intelligent search
+  // algorithms and methods to provide accurate and speedy search results for users.
+  @Deprecated(
+      'Migrate VietMap API from v3 to v4. Use autocomplete instead. See https://maps.vietmap.vn/docs/map-api/autocomplete-version/autocomplete-v4')
   static Future<Either<Failure, List<VietmapAutocompleteModel>>> geoCode(
       VietMapAutoCompleteParams params) {
     return GeoCodeUseCase(getVietmapApiRepositories()).call(params);
+  }
+
+  // Updating Geocode 4.0 API is a powerful tool for developers to integrate
+  // location search functionality into their applications with optimized
+  // performance. Additionally, this latest version utilizes intelligent search
+  // algorithms and methods to provide accurate and speedy search results for users.
+  static Future<Either<Failure, List<VietmapAutocompleteModelV4>>> geoCodeV4(
+      VietmapAutocompleteParamsV4 params) {
+    return SearchLocationUsecase(getVietmapApiRepositories()).call(params);
+  }
+
+  // Updating the convert address API is a crucial step for developers 
+  // who need to migrate addresses between the old and new standardized formats used by VIETMAP. 
+  // This API allows users to input either an old or new address format 
+  // and receive a structured response with the corresponding converted address, 
+  // along with additional details such as boundaries and display names.
+  static Future<Either<Failure, VietmapMigrateAddressModel>> migrateAddress(
+      VietmapMigrateAddressParams params) {
+    return MigrateAddressUsecase(getVietmapApiRepositories()).call(params);
   }
 }

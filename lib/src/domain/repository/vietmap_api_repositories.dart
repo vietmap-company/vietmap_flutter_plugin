@@ -6,10 +6,12 @@ import 'package:flutter/foundation.dart';
 import 'package:vietmap_flutter_plugin/src/core/enums/failure_enum.dart';
 import 'package:vietmap_flutter_plugin/src/data/models/vietmap_autocomplete_model_v4.dart';
 import 'package:vietmap_flutter_plugin/src/data/models/vietmap_matrix_model.dart';
+import 'package:vietmap_flutter_plugin/src/data/models/vietmap_migrate_address_model.dart';
 import 'package:vietmap_flutter_plugin/src/data/models/vietmap_reverse_model_v4.dart';
 import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_autocomplete_param_v4.dart';
 import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_autocomplete_params.dart';
 import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_matrix_params.dart';
+import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_migrate_address_params.dart';
 import 'package:vietmap_flutter_plugin/src/extension/latlng_extension.dart';
 import 'package:vietmap_flutter_plugin/src/extension/string_extension.dart';
 import '../../core/failures/api_server_failure.dart';
@@ -34,14 +36,88 @@ class VietmapApiRepositories implements VietmapApiRepository {
   }
 
   @override
-  Future<Either<Failure, VietmapReverseModel>> getLocationFromLatLng(
-      {required double lat, required double long}) async {
+  Future<Either<Failure, VietmapMigrateAddressModel>> migrateAddress(
+      VietmapMigrateAddressParams params) async {
     try {
-      var res = await _dio.get('reverse/v3',
-          queryParameters: {'apikey': apiKey, 'lat': lat, 'lng': long});
+      if (params.text.isEmpty) {
+        return Left(ExceptionFailure(
+            Exception('Địa chỉ hiện tại không được để trống')));
+      }
+      if (params.migrateType != null &&
+          params.migrateType! == 2 &&
+          params.focus == null) {
+        return Left(ExceptionFailure(
+            Exception('Vui lòng cung cấp tọa độ focus khi migrateType là 2')));
+      }
+      var res = await _dio.get(
+        'migrate-address/v3',
+        queryParameters: {'apikey': apiKey, ...params.toQueryParam()},
+      );
 
-      if (res.statusCode == 200 && res.data.length > 0) {
-        var data = VietmapReverseModel.fromJson(res.data[0]);
+      if (res.statusCode == 200) {
+        var data = VietmapMigrateAddressModel.fromJson(res.data);
+        return Right(data);
+      } else if (res.statusCode == 429) {
+        return Left(APIKeyLimitedFailure(
+            message: 'API key đã đạt giới hạn lượng truy cập hôm nay',
+            code: FailureCode.limitExceedFailure));
+      } else {
+        return const Left(ApiServerFailure('Có lỗi xảy ra'));
+      }
+    } on DioException catch (ex) {
+      if (ex.type == DioExceptionType.receiveTimeout) {
+        return Left(ApiTimeOutFailure());
+      } else {
+        return Left(ExceptionFailure(ex));
+      }
+    }
+  }
+
+  @override
+  Future<Either<Failure, VietmapPlaceModel>> getPlaceDetailLocation(
+      String refId) async {
+    try {
+      if (refId.isEmpty) {
+        return Left(ExceptionFailure(Exception('RefId không được để trống')));
+      }
+      var res = await _dio
+          .get('place/v4', queryParameters: {'apikey': apiKey, 'refid': refId});
+
+      if (res.statusCode == 200) {
+        var data = VietmapPlaceModel.fromJson(res.data);
+        return Right(data);
+      } else if (res.statusCode == 429) {
+        return Left(APIKeyLimitedFailure(
+            message: 'API key đã đạt giới hạn lượng truy cập hôm nay',
+            code: FailureCode.limitExceedFailure));
+      } else {
+        return const Left(ApiServerFailure('Có lỗi xảy ra'));
+      }
+    } on DioException catch (ex) {
+      if (ex.type == DioExceptionType.receiveTimeout) {
+        return Left(ApiTimeOutFailure());
+      } else {
+        return Left(ExceptionFailure(ex));
+      }
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<VietmapAutocompleteModelV4>>> geoCodeLocation(
+      VietmapAutocompleteParamsV4 params) async {
+    try {
+      if (params.textSearch.isEmpty) {
+        return const Right([]);
+      }
+      final queryParams = {'apikey': apiKey, ...params.toQueryParam()};
+      var res = await _dio.get(
+        'search/v4',
+        queryParameters: queryParams,
+      );
+
+      if (res.statusCode == 200) {
+        var data = List<VietmapAutocompleteModelV4>.from(
+            res.data.map((e) => VietmapAutocompleteModelV4.fromJson(e)));
         return Right(data);
       } else if (res.statusCode == 429) {
         return Left(APIKeyLimitedFailure(
@@ -90,21 +166,18 @@ class VietmapApiRepositories implements VietmapApiRepository {
   }
 
   @override
-  Future<Either<Failure, List<VietmapAutocompleteModel>>> searchLocation(
-      VietMapAutoCompleteParams params) async {
+  Future<Either<Failure, List<VietmapAutocompleteModelV4>>>
+      autocompleteLocation(VietmapAutocompleteParamsV4 params) async {
     try {
-      Map<String, dynamic> queryParams = {
-        'apikey': apiKey,
-        'text': params.textSearch
-      };
-      if (params.focusLocation != null) {
-        queryParams['focus'] = params.focusLocation!.toUrlValue();
-      }
-      var res = await _dio.get('autocomplete/v3', queryParameters: queryParams);
+      final queryParams = {'apikey': apiKey, ...params.toQueryParam()};
+      var res = await _dio.get(
+        'autocomplete/v4',
+        queryParameters: queryParams,
+      );
 
       if (res.statusCode == 200) {
-        var data = List<VietmapAutocompleteModel>.from(
-            res.data.map((e) => VietmapAutocompleteModel.fromJson(e)));
+        var data = List<VietmapAutocompleteModelV4>.from(
+            res.data.map((e) => VietmapAutocompleteModelV4.fromJson(e)));
         return Right(data);
       } else if (res.statusCode == 429) {
         return Left(APIKeyLimitedFailure(
@@ -123,18 +196,47 @@ class VietmapApiRepositories implements VietmapApiRepository {
   }
 
   @override
-  Future<Either<Failure, List<VietmapAutocompleteModelV4>>>
-      autocompleteLocation(VietmapAutocompleteParamsV4 params) async {
+  Future<Either<Failure, VietmapReverseModel>> getLocationFromLatLng(
+      {required double lat, required double long}) async {
     try {
-      final queryParams = {'apikey': apiKey, ...params.toQueryParam()};
-      var res = await _dio.get(
-        'autocomplete/v4',
-        queryParameters: queryParams,
-      );
+      var res = await _dio.get('reverse/v3',
+          queryParameters: {'apikey': apiKey, 'lat': lat, 'lng': long});
+
+      if (res.statusCode == 200 && res.data.length > 0) {
+        var data = VietmapReverseModel.fromJson(res.data[0]);
+        return Right(data);
+      } else if (res.statusCode == 429) {
+        return Left(APIKeyLimitedFailure(
+            message: 'API key đã đạt giới hạn lượng truy cập hôm nay',
+            code: FailureCode.limitExceedFailure));
+      } else {
+        return const Left(ApiServerFailure('Có lỗi xảy ra'));
+      }
+    } on DioException catch (ex) {
+      if (ex.type == DioExceptionType.receiveTimeout) {
+        return Left(ApiTimeOutFailure());
+      } else {
+        return Left(ExceptionFailure(ex));
+      }
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<VietmapAutocompleteModel>>> searchLocation(
+      VietMapAutoCompleteParams params) async {
+    try {
+      Map<String, dynamic> queryParams = {
+        'apikey': apiKey,
+        'text': params.textSearch
+      };
+      if (params.focusLocation != null) {
+        queryParams['focus'] = params.focusLocation!.toUrlValue();
+      }
+      var res = await _dio.get('autocomplete/v3', queryParameters: queryParams);
 
       if (res.statusCode == 200) {
-        var data = List<VietmapAutocompleteModelV4>.from(
-            res.data.map((e) => VietmapAutocompleteModelV4.fromJson(e)));
+        var data = List<VietmapAutocompleteModel>.from(
+            res.data.map((e) => VietmapAutocompleteModel.fromJson(e)));
         return Right(data);
       } else if (res.statusCode == 429) {
         return Left(APIKeyLimitedFailure(

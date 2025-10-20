@@ -1,11 +1,11 @@
 import 'package:vietmap_flutter_plugin/src/data/models/vietmap_autocomplete_model_v4.dart';
+import 'package:vietmap_flutter_plugin/src/data/repository/vietmap_api_repository.dart';
 import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_autocomplete_param_v4.dart';
-import 'package:vietmap_flutter_plugin/src/domain/repository/vietmap_api_repositories.dart';
 import 'package:vietmap_flutter_plugin/vietmap_flutter_plugin.dart';
 
 class AutocompleteLocationUsecase
     extends UseCase<List<VietmapAutocompleteModel>, VietmapAutocompleteParamsV4> {
-  final VietmapApiRepositories repository;
+  final VietmapApiRepository repository;
 
   AutocompleteLocationUsecase(this.repository);
 

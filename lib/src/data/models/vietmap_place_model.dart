@@ -85,4 +85,10 @@ class VietmapPlaceModel extends VietmapModel {
         .where((element) => element != null && element.isNotEmpty)
         .join(', ');
   }
+
+
+  @override
+  String toString() {
+    return 'VietmapPlaceModel{$display, lat: $lat, lng: $lng, address: $address}';
+  }
 }
