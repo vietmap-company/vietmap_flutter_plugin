@@ -157,8 +157,6 @@ class Vietmap {
 
   // The Matrix API calculate many-to-many distances and times a lot more
   // efficient than calling the Routing API multiple times
-  @Deprecated(
-      'Migrate VietMap API from v3 to v4. Use autocomplete instead. See https://maps.vietmap.vn/docs/map-api/autocomplete-version/autocomplete-v4')
   static Future<Either<Failure, VietmapMatrixModel>> matrix(
       VietmapMatrixParams params) {
     return MatrixUseCase(getVietmapApiRepositories()).call(params);
@@ -187,8 +185,6 @@ class Vietmap {
   // estimated travel time, and turn-by-turn directions. Developers can use
   // Route Maps APIs to create applications that help with navigation,
   // transportation planning, and logistics management.
-  @Deprecated(
-      'Migrate VietMap API from v3 to v4. Use autocomplete instead. See https://maps.vietmap.vn/docs/map-api/autocomplete-version/autocomplete-v4')
   static Future<Either<Failure, VietMapRoutingModel>> routing(
       VietMapRoutingParams vietMapRoutingParams) {
     return GetDirectionUseCase(getVietmapApiRepositories())
