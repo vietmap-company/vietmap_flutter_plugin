@@ -1,3 +1,4 @@
+import 'package:vietmap_flutter_plugin/src/core/enums/tile_map_type.dart';
 import 'package:vietmap_flutter_plugin/src/data/models/vietmap_autocomplete_model_v4.dart';
 import 'package:vietmap_flutter_plugin/src/data/models/vietmap_migrate_address_model.dart';
 import 'package:vietmap_flutter_plugin/src/data/models/vietmap_reverse_model_v4.dart';
@@ -47,6 +48,39 @@ class Vietmap {
       throw Exception('Please call `Vietmap.getInstance(apiKey)` before use');
     }
     return 'https://maps.vietmap.vn/api/maps/light/styles.json?apikey=$_vietmapAPIKey';
+  }
+
+  
+  /// Get vietmap style url based on TileMapType. See [TileMapType] for more details.
+  static String getMapStyle({TileMapType? type}) {
+    if (_vietmapAPIKey.isEmpty) {
+      throw Exception('Please call `Vietmap.getInstance(apiKey)` before use');
+    }
+    String style = 'https://maps.vietmap.vn/maps/styles/';
+    switch (type) {
+      case TileMapType.vectorDefault:
+        style += 'tm/style.json';
+        break;
+      case TileMapType.vectorLight:
+        style += 'lm/style.json';
+        break;
+      case TileMapType.vectorDark:
+        style += 'dm/style.json';
+        break;
+      case TileMapType.rasterDefault:
+        style += 'tm/tiles.json';
+        break;
+      case TileMapType.rasterLight:
+        style += 'lm/tiles.json';
+        break;
+      case TileMapType.rasterDark:
+        style += 'dm/tiles.json';
+        break;
+      default:
+        style += 'tm/style.json';
+    }
+    style += '?apikey=$_vietmapAPIKey';
+    return style;
   }
 
   /// Get base url for Vietmap APIs
@@ -139,13 +173,11 @@ class Vietmap {
     return GetPlaceDetailUseCase(getVietmapApiRepositories()).call(placeId);
   }
 
-
   // The Place API v4 service endpoint provides detailed information about the
   // place found by its identifier (refid).
   static Future<Either<Failure, VietmapPlaceModel>> placeV4(String refId) {
     return GetPlaceDetailV4Usecase(getVietmapApiRepositories()).call(refId);
   }
-
 
   // A Route Maps API is a feature provided by VIETMAP that allows developers to
   // calculate and display the optimal route between two or more locations on
@@ -184,10 +216,10 @@ class Vietmap {
     return SearchLocationUsecase(getVietmapApiRepositories()).call(params);
   }
 
-  // Updating the convert address API is a crucial step for developers 
-  // who need to migrate addresses between the old and new standardized formats used by VIETMAP. 
-  // This API allows users to input either an old or new address format 
-  // and receive a structured response with the corresponding converted address, 
+  // Updating the convert address API is a crucial step for developers
+  // who need to migrate addresses between the old and new standardized formats used by VIETMAP.
+  // This API allows users to input either an old or new address format
+  // and receive a structured response with the corresponding converted address,
   // along with additional details such as boundaries and display names.
   static Future<Either<Failure, VietmapMigrateAddressModel>> migrateAddress(
       VietmapMigrateAddressParams params) {

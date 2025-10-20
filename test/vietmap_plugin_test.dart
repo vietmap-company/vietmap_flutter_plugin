@@ -3,6 +3,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:vietmap_flutter_plugin/src/core/enums/autocomplete_display_type.dart';
 import 'package:vietmap_flutter_plugin/src/core/enums/migrate_type.dart';
+import 'package:vietmap_flutter_plugin/src/core/enums/tile_map_type.dart';
 import 'package:vietmap_flutter_plugin/src/data/models/vietmap_autocomplete_model_v4.dart';
 import 'package:vietmap_flutter_plugin/src/data/models/vietmap_migrate_address_model.dart';
 import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_autocomplete_param_v4.dart';
@@ -893,6 +894,19 @@ Future<void> main() async {
         debugPrint(r.toString());
         expect(r, const TypeMatcher<VietmapMigrateAddressModel>());
       });
+    });
+  });
+
+  group('Test Vietmap Migrate Address API v4', () {
+    test('API key should not be null', () {
+      expect(apikey, isNotEmpty);
+      Vietmap.getInstance(apikey!);
+    });
+
+    test('Test get map style url from tilemap type', () {
+      var styleUrl = Vietmap.getMapStyle();
+      debugPrint(styleUrl);
+      expect(styleUrl, isNotEmpty);
     });
   });
 }
