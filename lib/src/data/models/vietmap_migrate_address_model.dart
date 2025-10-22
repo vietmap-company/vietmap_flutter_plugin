@@ -23,9 +23,9 @@ class VietmapMigrateAddressModel {
 
   factory VietmapMigrateAddressModel.fromJson(Map<String, dynamic> json) {
     return VietmapMigrateAddressModel(
-      address: json['address'] as String?,
-      name: json['name'] as String?,
-      display: json['display'] as String?,
+      address: json['address'],
+      name: json['name'],
+      display: json['display'],
       boundaries: json['boundaries'] != null
           ? List<VietmapBoundaries?>.from(
               json['boundaries'].map((e) => VietmapBoundaries.fromJson(e)))

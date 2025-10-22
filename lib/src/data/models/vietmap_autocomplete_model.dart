@@ -15,11 +15,19 @@ class VietmapAutocompleteModel extends VietmapModel {
   /// [boundaries] list containing boundary information (ward, district, city).
   List<VietmapBoundaries?>? boundaries;
 
+  /// [dataOld] Old-format variant of this result (when applicable to the chosen display type), otherwise null.
+  VietmapAutocompleteModel? dataOld;
+
+  /// [dataNew] New-format variant of this result (when applicable to the chosen display type), otherwise null.
+  VietmapAutocompleteModel? dataNew;
+
   VietmapAutocompleteModel({
     this.refId,
     this.distance,
     this.categories,
     this.boundaries,
+    this.dataOld,
+    this.dataNew,
     super.address,
     super.name,
     super.display,
@@ -28,29 +36,43 @@ class VietmapAutocompleteModel extends VietmapModel {
   /// [fromJson] is a method that is used to parse the response from the server.
   factory VietmapAutocompleteModel.fromJson(Map<String, dynamic> json) {
     return VietmapAutocompleteModel(
-        refId: json['ref_id'],
-        distance: json['distance'],
-        address: json['address'],
-        name: json['name'],
-        display: json['display'],
-        categories: json['categories'] != null
-            ? List<String?>.from(json['categories'])
-            : [],
-        boundaries: json['boundaries'] != null
-            ? List<VietmapBoundaries?>.from(
-                json['boundaries'].map((x) => VietmapBoundaries.fromJson(x)))
-            : []);
+      refId: json['ref_id'],
+      distance: json['distance'],
+      address: json['address'],
+      name: json['name'],
+      display: json['display'],
+      categories: json['categories'] != null
+          ? List<String?>.from(json['categories'])
+          : [],
+      boundaries: json['boundaries'] != null
+          ? List<VietmapBoundaries?>.from(
+              json['boundaries'].map((x) => VietmapBoundaries.fromJson(x)))
+          : [],
+      dataOld: json['data_old'] != null
+          ? VietmapAutocompleteModel.fromJson(json['data_old'])
+          : null,
+      dataNew: json['data_new'] != null
+          ? VietmapAutocompleteModel.fromJson(json['data_new'])
+          : null,
+    );
   }
 
   /// [toJson] is a method that is used to convert the object to a json object.
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['ref_id'] = refId;
+    data['distance'] = distance;
     data['address'] = address;
     data['name'] = name;
     data['display'] = display;
     data['categories'] = categories;
     data['boundaries'] = boundaries?.map((e) => e?.toJson()).toList();
+    if (dataOld != null) {
+      data['data_old'] = dataOld?.toJson();
+    }
+    if (dataNew != null) {
+      data['data_new'] = dataNew?.toJson();
+    }
     return data;
   }
 

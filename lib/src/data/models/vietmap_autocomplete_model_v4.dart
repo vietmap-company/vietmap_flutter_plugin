@@ -6,16 +6,8 @@ class VietmapAutocompleteModelV4 extends VietmapAutocompleteModel {
   /// [entryPoints] list containing entry points for the POI. This value will available for some special address, like airport, hotel,...
   List<VietmapEntryPointModel?>? entryPoints;
 
-  /// [dataOld] Old-format variant of this result (when applicable to the chosen display type), otherwise null.
-  VietmapAutocompleteModelV4? dataOld;
-
-  /// [dataNew] New-format variant of this result (when applicable to the chosen display type), otherwise null.
-  VietmapAutocompleteModelV4? dataNew;
-
   VietmapAutocompleteModelV4({
     this.entryPoints,
-    this.dataOld,
-    this.dataNew,
     super.refId,
     super.distance,
     super.categories,
@@ -23,6 +15,8 @@ class VietmapAutocompleteModelV4 extends VietmapAutocompleteModel {
     super.address,
     super.name,
     super.display,
+    super.dataOld,
+    super.dataNew,
   });
 
   factory VietmapAutocompleteModelV4.fromJson(Map<String, dynamic> json) {
@@ -44,10 +38,10 @@ class VietmapAutocompleteModelV4 extends VietmapAutocompleteModel {
               .map((x) => VietmapEntryPointModel.fromJson(x)))
           : [],
       dataOld: json['data_old'] != null
-          ? VietmapAutocompleteModelV4.fromJson(json['data_old'])
+          ? VietmapAutocompleteModel.fromJson(json['data_old'])
           : null,
       dataNew: json['data_new'] != null
-          ? VietmapAutocompleteModelV4.fromJson(json['data_new'])
+          ? VietmapAutocompleteModel.fromJson(json['data_new'])
           : null,
     );
   }
@@ -57,12 +51,6 @@ class VietmapAutocompleteModelV4 extends VietmapAutocompleteModel {
     final Map<String, dynamic> data = <String, dynamic>{};
     data.addAll(super.toJson());
     data['entry_points'] = entryPoints?.map((e) => e?.toJson()).toList();
-    if (dataOld != null) {
-      data['data_old'] = dataOld?.toJson();
-    }
-    if (dataNew != null) {
-      data['data_new'] = dataNew?.toJson();
-    }
     return data;
   }
 }
