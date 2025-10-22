@@ -1,3 +1,5 @@
+/// Model class representing a Vietmap Entry Point
+/// This value will available for some special address, like airport, hotel,...
 class VietmapEntryPointModel {
   /// [ref_id] Reference ID for the Point of Interest (POI)
   final String? refId;

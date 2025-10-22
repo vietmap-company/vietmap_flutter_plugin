@@ -1,10 +1,19 @@
+/// Model class representing the response from Vietmap Matrix API
 class VietmapMatrixModel {
+  /// [code] A code indicating the status of the response.
   String? code;
+
+  /// [messages] Messages associated with the response, if any.
   String? messages;
+
+  /// [durations] A 2D list representing the travel durations. 
+  /// Each value in the row represents the travel duration from the origin to a corresponding destination point in the list.
   List<List<num>>? durations;
+
+  /// [distances] A 2D list representing the travel distances.
+  /// Each value in the row represents the travel distance from the origin to a corresponding destination point in the list.
   List<List<num>>? distances;
 
-  ///
   VietmapMatrixModel(
       {this.code, this.messages, this.durations, this.distances});
 

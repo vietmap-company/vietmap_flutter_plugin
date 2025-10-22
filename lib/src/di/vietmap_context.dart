@@ -110,15 +110,11 @@ class Vietmap {
     return SearchAddressUseCase(getVietmapApiRepositories()).call(params);
   }
 
-  // Updating Autocomplete 4.0 API is a valuable resources that allows
-  // developers to integrate autocomplete functionality into their applications.
-  // This API is designed to help users quickly find and select items from a
-  // large set of options by suggesting potential matches as they type.
-  // The API is built on a machine learning model that analyzes user input and
-  // suggests potential matches based on the context of the search. This model
-  // can be updated in real-time, allowing the API to continuously improve its
-  // suggestions as more data becomes available
-  // See more at https://maps.vietmap.vn/docs/map-api/autocomplete-version/autocomplete-v4
+  /// Autocomplete V4 API provides location suggestions based on user input.  
+  /// This API is designed to help users quickly find and select locations  
+  /// by suggesting potential matches as they type, enhancing the user experience
+  /// in location-based applications.
+  /// See more at https://maps.vietmap.vn/docs/map-api/autocomplete-version/autocomplete-v4
   static Future<Either<Failure, List<VietmapAutocompleteModelV4>>>
       autocompleteV4(VietmapAutocompleteParamsV4 params) {
     return AutocompleteLocationUsecase(getVietmapApiRepositories())
@@ -138,17 +134,12 @@ class Vietmap {
         .call(LatLng(location.latitude, location.longitude));
   }
 
-  // Updating Reverse 4.0 API is a valuable resource for developers who want to
-  // incorporate location search features into their applications while
-  // achieving optimal performance. With its intelligent search algorithms
-  // and techniques, this latest version can swiftly deliver precise search
-  // results for users. This API is a powerful tool that can help enhance the
-  // user experience of location-based applications.
-  // This version supports new administrative format (2 levels: ward, city)
-  // and old administrative format (3 levels: ward, district, city).
-  // You can choose display type via [VietmapReverseParams.displayType]
-  // Responses can include data_old/data_new to carry the alternate format.
-  // See more at https://maps.vietmap.vn/docs/map-api/reverse-version/reverse-v4
+  
+  /// Reverse V4 API is a demonstration version of the reverse geocoding service 
+  /// that allows developers to test and explore location search features. 
+  /// This API provides a way to convert geographic coordinates (latitude and longitude) into readable addresses and location information, 
+  /// helping developers understand the capabilities before implementing the full version.
+  /// See more at https://maps.vietmap.vn/docs/map-api/reverse-version/reverse-v4.
   static Future<Either<Failure, VietmapReverseModelV4>> reverseV4(
       VietmapReverseParams params) {
     return ReverseLocationFromLatlngUsecase(getVietmapApiRepositories())
@@ -170,8 +161,8 @@ class Vietmap {
     return GetPlaceDetailUseCase(getVietmapApiRepositories()).call(placeId);
   }
 
-  // The Place API v4 service endpoint provides detailed information about the
-  // place found by its identifier (refid).
+  /// The Place API service endpoint provides detailed information about the Place found by its identifier (refid).
+  /// See more at https://maps.vietmap.vn/docs/map-api/place-v4
   static Future<Either<Failure, VietmapPlaceModel>> placeV4(String refId) {
     return GetPlaceDetailV4Usecase(getVietmapApiRepositories()).call(refId);
   }
@@ -202,20 +193,20 @@ class Vietmap {
     return GeoCodeUseCase(getVietmapApiRepositories()).call(params);
   }
 
-  // Updating Geocode 4.0 API is a powerful tool for developers to integrate
-  // location search functionality into their applications with optimized
-  // performance. Additionally, this latest version utilizes intelligent search
-  // algorithms and methods to provide accurate and speedy search results for users.
+  /// Retrieves a list of locations based on the provided address input.  
+  /// Upgraded from the Geocode v3 API, version 4 offers enhanced performance  
+  /// and provides a more powerful solution for developers to integrate  
+  /// location search functionality into their applications.
+  /// See more at https://maps.vietmap.vn/docs/map-api/geocode-version/geocode-v4
   static Future<Either<Failure, List<VietmapAutocompleteModelV4>>> geoCodeV4(
       VietmapAutocompleteParamsV4 params) {
     return SearchLocationUsecase(getVietmapApiRepositories()).call(params);
   }
 
-  // Updating the convert address API is a crucial step for developers
-  // who need to migrate addresses between the old and new standardized formats used by VIETMAP.
-  // This API allows users to input either an old or new address format
-  // and receive a structured response with the corresponding converted address,
-  // along with additional details such as boundaries and display names.
+  /// Migrate addresses between the old and new standardized formats used by VIETMAP.
+  /// This API allows users to input either an old or new address format
+  /// and receive a structured response with the corresponding converted address.
+  /// See more at https://maps.vietmap.vn/docs/migrate-address/migrate-address-docs
   static Future<Either<Failure, VietmapMigrateAddressModel>> migrateAddress(
       VietmapMigrateAddressParams params) {
     return MigrateAddressUsecase(getVietmapApiRepositories()).call(params);

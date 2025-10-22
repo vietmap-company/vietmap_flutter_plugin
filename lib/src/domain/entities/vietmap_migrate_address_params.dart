@@ -1,5 +1,6 @@
 import 'package:vietmap_flutter_plugin/vietmap_flutter_plugin.dart';
 
+/// This class represents the parameters for migrating addresses between old and new formats.
 class VietmapMigrateAddressParams {
   /// Specify the center of the search context expressed as coordinates. Required if migrate_type = 2
   final LatLng? focus;

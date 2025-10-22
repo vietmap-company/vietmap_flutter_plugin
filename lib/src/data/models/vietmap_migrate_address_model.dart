@@ -1,5 +1,6 @@
 import 'package:vietmap_flutter_plugin/src/data/models/vietmap_boundaries_model.dart';
 
+/// This model represents the response from the Vietmap Migrate Address API.
 class VietmapMigrateAddressModel {
   /// Full address including street, ward, and city.
   final String? address;

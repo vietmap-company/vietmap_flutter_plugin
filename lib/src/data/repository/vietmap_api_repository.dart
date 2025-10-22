@@ -58,8 +58,6 @@ abstract class VietmapApiRepository {
   Future<Either<Failure, VietmapPlaceModel>> getPlaceDetail(String placeId);
 
   // Get direction from origin to destination
-  @Deprecated(
-      'Migrate VietMap API from v3 to v4. Use reverseLocationFromLatLng instead. See https://maps.vietmap.vn/docs/map-api/reverse-version/reverse-v4/')
   Future<Either<Failure, VietMapRoutingModel>> findRoute(
       VietMapRoutingParams params);
 
@@ -71,8 +69,6 @@ abstract class VietmapApiRepository {
   );
 
   /// Get matrix api from vietmap
-  @Deprecated(
-      'Migrate VietMap API from v3 to v4. Use reverseLocationFromLatLng instead. See https://maps.vietmap.vn/docs/map-api/reverse-version/reverse-v4/')
   Future<Either<Failure, VietmapMatrixModel>> matrix(
     VietmapMatrixParams params,
   );

@@ -1,5 +1,6 @@
 import 'package:vietmap_flutter_plugin/vietmap_flutter_plugin.dart';
 
+/// This class represents the parameters for reverse geocoding requests in Vietmap API version 4.
 class VietmapReverseParams {
   /// [latLng] is the latitude and longitude of the location.
   final LatLng latLng;
