@@ -12,6 +12,7 @@ import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_autocomplete_
 import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_autocomplete_params.dart';
 import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_matrix_params.dart';
 import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_migrate_address_params.dart';
+import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_reverse_params.dart';
 import 'package:vietmap_flutter_plugin/src/extension/latlng_extension.dart';
 import 'package:vietmap_flutter_plugin/src/extension/string_extension.dart';
 import '../../core/failures/api_server_failure.dart';
@@ -44,7 +45,7 @@ class VietmapApiRepositories implements VietmapApiRepository {
             Exception('Địa chỉ hiện tại không được để trống')));
       }
       if (params.migrateType != null &&
-          params.migrateType! == 2 &&
+          params.migrateType!.value == 2 &&
           params.focus == null) {
         return Left(ExceptionFailure(
             Exception('Vui lòng cung cấp tọa độ focus khi migrateType là 2')));
@@ -74,7 +75,7 @@ class VietmapApiRepositories implements VietmapApiRepository {
   }
 
   @override
-  Future<Either<Failure, VietmapPlaceModel>> getPlaceDetailLocation(
+  Future<Either<Failure, VietmapPlaceModel>> getPlaceDetailV4(
       String refId) async {
     try {
       if (refId.isEmpty) {
@@ -103,7 +104,7 @@ class VietmapApiRepositories implements VietmapApiRepository {
   }
 
   @override
-  Future<Either<Failure, List<VietmapAutocompleteModelV4>>> geoCodeLocation(
+  Future<Either<Failure, List<VietmapAutocompleteModelV4>>> geoCodeV4(
       VietmapAutocompleteParamsV4 params) async {
     try {
       if (params.textSearch.isEmpty) {
@@ -136,14 +137,15 @@ class VietmapApiRepositories implements VietmapApiRepository {
   }
 
   @override
-  Future<Either<Failure, VietmapReverseModelV4>> reverseLocationFromLatLng(
-      {required double lat, required double long, int? displayType}) async {
+  Future<Either<Failure, VietmapReverseModelV4>> getLocationFromLatLngV4(
+      VietmapReverseParams params) async {
     try {
       var res = await _dio.get('reverse/v4', queryParameters: {
         'apikey': apiKey,
-        'lat': lat,
-        'lng': long,
-        if (displayType != null) 'display_type': displayType
+        'lat': params.latLng.latitude,
+        'lng': params.latLng.longitude,
+        if (params.displayType != null)
+          'display_type': params.displayType!.value
       });
 
       if (res.statusCode == 200 && res.data.length > 0) {
@@ -166,8 +168,8 @@ class VietmapApiRepositories implements VietmapApiRepository {
   }
 
   @override
-  Future<Either<Failure, List<VietmapAutocompleteModelV4>>>
-      autocompleteLocation(VietmapAutocompleteParamsV4 params) async {
+  Future<Either<Failure, List<VietmapAutocompleteModelV4>>> searchLocationV4(
+      VietmapAutocompleteParamsV4 params) async {
     try {
       final queryParams = {'apikey': apiKey, ...params.toQueryParam()};
       var res = await _dio.get(

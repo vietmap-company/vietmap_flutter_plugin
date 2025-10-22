@@ -6,14 +6,14 @@ import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_autocomplete_
 import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_migrate_address_params.dart';
 import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_reverse_params.dart';
 import 'package:vietmap_flutter_plugin/src/domain/repository/vietmap_api_repositories.dart';
-import 'package:vietmap_flutter_plugin/src/domain/usecase/autocomplete_location_usecase.dart';
+import 'package:vietmap_flutter_plugin/src/domain/usecase/geocode_v4_usecase.dart';
 import 'package:vietmap_flutter_plugin/src/domain/usecase/geocode_usecase.dart';
 import 'package:vietmap_flutter_plugin/src/domain/usecase/get_location_from_latlng_usecase.dart';
 import 'package:vietmap_flutter_plugin/src/domain/usecase/get_place_detail_v4_usecase.dart';
 import 'package:vietmap_flutter_plugin/src/domain/usecase/matrix_usecase.dart';
 import 'package:vietmap_flutter_plugin/src/domain/usecase/migrate_address_usecase.dart';
-import 'package:vietmap_flutter_plugin/src/domain/usecase/reverse_location_from_latlng_usecase.dart';
-import 'package:vietmap_flutter_plugin/src/domain/usecase/search_location_usecase.dart';
+import 'package:vietmap_flutter_plugin/src/domain/usecase/get_location_from_latlng_v4_usecase.dart';
+import 'package:vietmap_flutter_plugin/src/domain/usecase/search_address_v4_usecase.dart';
 
 import '../../vietmap_flutter_plugin.dart';
 import '../domain/usecase/get_direction_usecase.dart';
@@ -55,31 +55,22 @@ class Vietmap {
     if (_vietmapAPIKey.isEmpty) {
       throw Exception('Please call `Vietmap.getInstance(apiKey)` before use');
     }
-    String style = 'https://maps.vietmap.vn/maps/styles/';
     switch (type) {
       case TileMapEnum.vectorDefault:
-        style += 'tm/style.json';
-        break;
+        return 'https://maps.vietmap.vn/maps/styles/tm/style.json?apikey=$_vietmapAPIKey';
       case TileMapEnum.vectorLight:
-        style += 'lm/style.json';
-        break;
+        return 'https://maps.vietmap.vn/maps/styles/lm/style.json?apikey=$_vietmapAPIKey';
       case TileMapEnum.vectorDark:
-        style += 'dm/style.json';
-        break;
+        return 'https://maps.vietmap.vn/maps/styles/dm/style.json?apikey=$_vietmapAPIKey';
       case TileMapEnum.rasterDefault:
-        style += 'tm/tiles.json';
-        break;
+        return 'https://maps.vietmap.vn/maps/styles/tm/tiles.json?apikey=$_vietmapAPIKey';
       case TileMapEnum.rasterLight:
-        style += 'lm/tiles.json';
-        break;
+        return 'https://maps.vietmap.vn/maps/styles/lm/tiles.json?apikey=$_vietmapAPIKey';
       case TileMapEnum.rasterDark:
-        style += 'dm/tiles.json';
-        break;
+        return 'https://maps.vietmap.vn/maps/styles/dm/tiles.json?apikey=$_vietmapAPIKey';
       default:
-        style += 'tm/style.json';
+        return 'https://maps.vietmap.vn/maps/styles/tm/style.json?apikey=$_vietmapAPIKey';
     }
-    style += '?apikey=$_vietmapAPIKey';
-    return style;
   }
 
   /// Get base url for Vietmap APIs
@@ -110,14 +101,14 @@ class Vietmap {
     return SearchAddressUseCase(getVietmapApiRepositories()).call(params);
   }
 
-  /// Autocomplete V4 API provides location suggestions based on user input.  
-  /// This API is designed to help users quickly find and select locations  
+  /// Autocomplete V4 API provides location suggestions based on user input.
+  /// This API is designed to help users quickly find and select locations
   /// by suggesting potential matches as they type, enhancing the user experience
   /// in location-based applications.
   /// See more at https://maps.vietmap.vn/docs/map-api/autocomplete-version/autocomplete-v4
   static Future<Either<Failure, List<VietmapAutocompleteModelV4>>>
       autocompleteV4(VietmapAutocompleteParamsV4 params) {
-    return AutocompleteLocationUsecase(getVietmapApiRepositories())
+    return SearchAddressV4Usecase(getVietmapApiRepositories())
         .call(params);
   }
 
@@ -134,15 +125,14 @@ class Vietmap {
         .call(LatLng(location.latitude, location.longitude));
   }
 
-  
-  /// Reverse V4 API is a demonstration version of the reverse geocoding service 
-  /// that allows developers to test and explore location search features. 
-  /// This API provides a way to convert geographic coordinates (latitude and longitude) into readable addresses and location information, 
+  /// Reverse V4 API is a demonstration version of the reverse geocoding service
+  /// that allows developers to test and explore location search features.
+  /// This API provides a way to convert geographic coordinates (latitude and longitude) into readable addresses and location information,
   /// helping developers understand the capabilities before implementing the full version.
   /// See more at https://maps.vietmap.vn/docs/map-api/reverse-version/reverse-v4.
   static Future<Either<Failure, VietmapReverseModelV4>> reverseV4(
       VietmapReverseParams params) {
-    return ReverseLocationFromLatlngUsecase(getVietmapApiRepositories())
+    return GetLocationFromLatlngV4Usecase(getVietmapApiRepositories())
         .call(params);
   }
 
@@ -193,14 +183,14 @@ class Vietmap {
     return GeoCodeUseCase(getVietmapApiRepositories()).call(params);
   }
 
-  /// Retrieves a list of locations based on the provided address input.  
-  /// Upgraded from the Geocode v3 API, version 4 offers enhanced performance  
-  /// and provides a more powerful solution for developers to integrate  
+  /// Retrieves a list of locations based on the provided address input.
+  /// Upgraded from the Geocode v3 API, version 4 offers enhanced performance
+  /// and provides a more powerful solution for developers to integrate
   /// location search functionality into their applications.
   /// See more at https://maps.vietmap.vn/docs/map-api/geocode-version/geocode-v4
   static Future<Either<Failure, List<VietmapAutocompleteModelV4>>> geoCodeV4(
       VietmapAutocompleteParamsV4 params) {
-    return SearchLocationUsecase(getVietmapApiRepositories()).call(params);
+    return GeocodeV4Usecase(getVietmapApiRepositories()).call(params);
   }
 
   /// Migrate addresses between the old and new standardized formats used by VIETMAP.

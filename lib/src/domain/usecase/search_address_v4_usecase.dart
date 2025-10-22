@@ -5,15 +5,15 @@ import 'package:vietmap_flutter_plugin/src/data/models/vietmap_autocomplete_mode
 import 'package:vietmap_flutter_plugin/src/data/repository/vietmap_api_repository.dart';
 import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_autocomplete_params_v4.dart';
 
-class SearchLocationUsecase extends UseCase<List<VietmapAutocompleteModelV4>,
+class SearchAddressV4Usecase extends UseCase<List<VietmapAutocompleteModelV4>,
     VietmapAutocompleteParamsV4> {
   final VietmapApiRepository repository;
 
-  SearchLocationUsecase(this.repository);
+  SearchAddressV4Usecase(this.repository);
 
   @override
   Future<Either<Failure, List<VietmapAutocompleteModelV4>>> call(
       VietmapAutocompleteParamsV4 params) async {
-    return await repository.geoCodeLocation(params);
+    return await repository.searchLocationV4(params);
   }
 }

@@ -1,3 +1,4 @@
+import 'package:vietmap_flutter_plugin/src/core/enums/migrate_enum.dart';
 import 'package:vietmap_flutter_plugin/vietmap_flutter_plugin.dart';
 
 /// This class represents the parameters for migrating addresses between old and new formats.
@@ -8,8 +9,8 @@ class VietmapMigrateAddressParams {
   /// Address input (old or new format)
   final String text;
 
-  /// Migrate type. See enum [MigrateType] for more details
-  final int? migrateType;
+  /// Migrate type. See enum [MigrateEnum] for more details
+  final MigrateEnum? migrateType;
 
 
   VietmapMigrateAddressParams({
@@ -25,7 +26,7 @@ class VietmapMigrateAddressParams {
       queryParams['focus'] = focus!.toUrlValue();
     }
     if (migrateType != null) {
-      queryParams['migrate_type'] = migrateType.toString();
+      queryParams['migrate_type'] = migrateType!.value.toString();
     }
     return queryParams;
   }

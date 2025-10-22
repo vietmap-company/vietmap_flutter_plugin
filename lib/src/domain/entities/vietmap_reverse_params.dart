@@ -1,3 +1,4 @@
+import 'package:vietmap_flutter_plugin/src/core/enums/reverse_display_enum.dart';
 import 'package:vietmap_flutter_plugin/vietmap_flutter_plugin.dart';
 
 /// This class represents the parameters for reverse geocoding requests in Vietmap API version 4.
@@ -7,7 +8,7 @@ class VietmapReverseParams {
 
   /// [displayType] is the display type of the reverse geocoding result, which determines how the result is presented.
   /// [ReverseDisplayType] is the enum that defines the available display types.
-  final int? displayType;
+  final ReverseDisplayEnum? displayType;
 
-  VietmapReverseParams({required this.latLng, this.displayType = 2});
+  VietmapReverseParams({required this.latLng, this.displayType = ReverseDisplayEnum.oldFormat});
 }

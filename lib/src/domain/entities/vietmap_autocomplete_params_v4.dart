@@ -1,9 +1,10 @@
+import 'package:vietmap_flutter_plugin/src/core/enums/autocomplete_display_enum.dart';
 import 'package:vietmap_flutter_plugin/vietmap_flutter_plugin.dart';
 
 /// This class represents the parameters for Vietmap Autocomplete and Geocode API version 4.
 class VietmapAutocompleteParamsV4 extends VietMapAutoCompleteParams {
-  /// [displayType] : (int) Result display type. Follow [AutocompleteDisplayType] for more detail
-  final int? displayType;
+  /// [displayType] : (int) Result display type. Follow [AutocompleteDisplayEnum] for more detail
+  final AutocompleteDisplayEnum? displayType;
 
   /// [cityId] : ([int]) Every city has a unique ID, which is used to filter search results
   final int? cityId;
@@ -49,7 +50,7 @@ class VietmapAutocompleteParamsV4 extends VietMapAutoCompleteParams {
       queryParams['focus'] = focusLocation!.toUrlValue();
     }
     if (displayType != null) {
-      queryParams['display_type'] = displayType.toString();
+      queryParams['display_type'] = displayType!.value.toString();
     }
     if (cityId != null) {
       queryParams['cityId'] = cityId.toString();

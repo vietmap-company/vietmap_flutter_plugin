@@ -8,6 +8,6 @@ class GetPlaceDetailV4Usecase extends UseCase<VietmapPlaceModel, String> {
 
   @override
   Future<Either<Failure, VietmapPlaceModel>> call(String params) async {
-    return await repository.getPlaceDetailLocation(params);
+    return await repository.getPlaceDetailV4(params);
   }
 }

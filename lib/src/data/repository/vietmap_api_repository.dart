@@ -6,6 +6,7 @@ import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_autocomplete_
 import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_autocomplete_params.dart';
 import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_matrix_params.dart';
 import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_migrate_address_params.dart';
+import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_reverse_params.dart';
 
 import '../../core/failures/failure.dart';
 import '../../domain/entities/vietmap_routing_params.dart';
@@ -21,20 +22,19 @@ import '../models/vietmap_routing_model.dart';
 // API repository.
 abstract class VietmapApiRepository {
   // Get location from lat, long (VietMap Reverse API v4)
-  Future<Either<Failure, VietmapReverseModelV4>> reverseLocationFromLatLng(
-      {required double lat, required double long, int? displayType});
+  Future<Either<Failure, VietmapReverseModelV4>> getLocationFromLatLngV4(
+      VietmapReverseParams params);
 
   // Auto suggest location from address (VietMap Autocomplete API v4)
-  Future<Either<Failure, List<VietmapAutocompleteModelV4>>>
-      autocompleteLocation(VietmapAutocompleteParamsV4 params);
+  Future<Either<Failure, List<VietmapAutocompleteModelV4>>> searchLocationV4(
+      VietmapAutocompleteParamsV4 params);
 
   // Get location from input address (VietMap Search API v4)
-  Future<Either<Failure, List<VietmapAutocompleteModelV4>>> geoCodeLocation(
+  Future<Either<Failure, List<VietmapAutocompleteModelV4>>> geoCodeV4(
       VietmapAutocompleteParamsV4 params);
 
   // Get place detail from ref id (VietMap Place API v4)
-  Future<Either<Failure, VietmapPlaceModel>> getPlaceDetailLocation(
-      String refId);
+  Future<Either<Failure, VietmapPlaceModel>> getPlaceDetailV4(String refId);
 
   // Convert current address to new format (VietMap Migrate Address API v4)
   Future<Either<Failure, VietmapMigrateAddressModel>> migrateAddress(

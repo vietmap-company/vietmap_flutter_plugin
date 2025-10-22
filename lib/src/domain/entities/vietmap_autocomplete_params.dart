@@ -3,7 +3,7 @@ import 'package:vietmap_flutter_plugin/vietmap_flutter_plugin.dart';
 /// Params for VietMapAutoComplete
 /// [textSearch] : (String) text that you want to search
 /// [focusLocation] : (LatLng) focus location for search, the response will be sorted by distance from this location
-/// [displayType] : (int) Result display type. Follow [AutocompleteDisplayType] for more detail
+/// [displayType] : (int) Result display type. Follow [AutocompleteDisplayEnum] for more detail
 /// [cityId] : (int) Every city has a unique ID, which is used to filter search results
 /// [distId] : (int) Every district has a unique ID, which is used to filter search results
 /// [wardId] : (int) Every ward has a unique ID, which is used to filter search results
