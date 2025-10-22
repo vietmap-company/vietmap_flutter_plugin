@@ -86,7 +86,6 @@ class VietmapPlaceModel extends VietmapModel {
         .join(', ');
   }
 
-
   @override
   String toString() {
     return 'VietmapPlaceModel{$display, lat: $lat, lng: $lng, address: $address}';

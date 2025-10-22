@@ -6,7 +6,7 @@ class VietmapMatrixModel {
   /// [messages] Messages associated with the response, if any.
   String? messages;
 
-  /// [durations] A 2D list representing the travel durations. 
+  /// [durations] A 2D list representing the travel durations.
   /// Each value in the row represents the travel duration from the origin to a corresponding destination point in the list.
   List<List<num>>? durations;
 

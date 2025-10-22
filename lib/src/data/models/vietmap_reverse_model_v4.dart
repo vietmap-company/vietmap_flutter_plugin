@@ -27,7 +27,6 @@ class VietmapReverseModelV4 extends VietmapReverseModel {
     super.display,
   });
 
-
   factory VietmapReverseModelV4.fromJson(Map<String, dynamic> json) {
     return VietmapReverseModelV4(
       lat: json['lat'],
@@ -57,7 +56,6 @@ class VietmapReverseModelV4 extends VietmapReverseModel {
     );
   }
 
-
   @override
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
@@ -71,7 +69,4 @@ class VietmapReverseModelV4 extends VietmapReverseModel {
     }
     return data;
   }
-
-
-
 }

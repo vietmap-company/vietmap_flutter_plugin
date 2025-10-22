@@ -108,8 +108,7 @@ class Vietmap {
   /// See more at https://maps.vietmap.vn/docs/map-api/autocomplete-version/autocomplete-v4
   static Future<Either<Failure, List<VietmapAutocompleteModelV4>>>
       autocompleteV4(VietmapAutocompleteParamsV4 params) {
-    return SearchAddressV4Usecase(getVietmapApiRepositories())
-        .call(params);
+    return SearchAddressV4Usecase(getVietmapApiRepositories()).call(params);
   }
 
   // Updating Reverse 3.0 API is a valuable resource for developers who want to

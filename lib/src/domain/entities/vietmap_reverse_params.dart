@@ -10,5 +10,6 @@ class VietmapReverseParams {
   /// [ReverseDisplayType] is the enum that defines the available display types.
   final ReverseDisplayEnum? displayType;
 
-  VietmapReverseParams({required this.latLng, this.displayType = ReverseDisplayEnum.oldFormat});
+  VietmapReverseParams(
+      {required this.latLng, this.displayType = ReverseDisplayEnum.oldFormat});
 }
