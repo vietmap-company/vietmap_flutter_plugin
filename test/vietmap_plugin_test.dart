@@ -2,10 +2,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:vietmap_flutter_plugin/src/core/enums/tilemap_enum.dart';
-import 'package:vietmap_flutter_plugin/src/data/models/vietmap_autocomplete_model_v4.dart';
-import 'package:vietmap_flutter_plugin/src/data/models/vietmap_migrate_address_model.dart';
 
-import 'package:vietmap_flutter_plugin/src/data/models/vietmap_reverse_model_v4.dart';
 import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_autocomplete_params_v4.dart';
 import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_migrate_address_params.dart';
 

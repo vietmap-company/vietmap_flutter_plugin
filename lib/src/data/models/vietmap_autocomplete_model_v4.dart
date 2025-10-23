@@ -1,4 +1,3 @@
-import 'package:vietmap_flutter_plugin/src/data/models/vietmap_entry_point_model.dart';
 import 'package:vietmap_flutter_plugin/vietmap_flutter_plugin.dart';
 
 /// This object represents an autocomplete or geocode result in Vietmap Autocomplete API version 4.

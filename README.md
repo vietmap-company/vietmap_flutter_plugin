@@ -28,7 +28,7 @@ or run this command in the terminal to add the library to the project:
 ```dart
     Vietmap.getInstance('YOUR_API_KEY_HERE');
 ```
-- We provide below methods to use Vietmap APIs:
+- We provide below methods to use Vietmap APIs v3:
 ```dart
     Vietmap.autocomplete(VietMapAutoCompleteParams(textSearch: 'Hà Nội'));
     
@@ -60,6 +60,24 @@ or run this command in the terminal to add the library to the project:
         2, 3, 4,
     ]));
                 
+```
+- From version 0.5.0, we provide methods to use Vietmap APIs v4 with enhanced features:
+```dart
+    
+    Vietmap.autocompleteV4(VietmapAutocompleteParamsV4(text: 'Hà Nội'));
+    
+    Vietmap.geoCodeV4(VietmapAutocompleteParamsV4(text: 'Hà Nội'));
+    
+    Vietmap.reverseV4(VietmapReverseParams(latLng: LatLng(21.027763, 105.834160)));
+    
+    Vietmap.placeV4('197 Trần Phú, Phường 4, Quận 5, Thành phố Hồ Chí Minh, Việt Nam');
+    
+    Vietmap.migrateAddress(
+      VietmapMigrateAddressParams(text: '197 Trần Phú, Phường 4, Quận 5, Thành phố Hồ Chí Minh, Việt Nam')
+    );
+    
+    Vietmap.getMapStyle(TileMapEnum.vectorDefault); // Other options: vectorLight, rasterDefault, etc.
+
 ```
 
 
