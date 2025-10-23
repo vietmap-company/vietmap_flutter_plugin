@@ -1,4 +1,4 @@
-## 0.5.0, Oct 23, 2025
+## 0.5.1, Oct 23, 2025
 * Deprecated v3 APIs and implemented enhanced v4 versions of `geocode`, `reverse`, `place detail`, and `autocomplete`
 * Implemented `migrate address` API
 * Added `getMapStyle` function to get map style URL by map type enum
