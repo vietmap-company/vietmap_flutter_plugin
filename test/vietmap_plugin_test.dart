@@ -1,4 +1,3 @@
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:vietmap_flutter_plugin/src/core/enums/tilemap_enum.dart';
@@ -10,13 +9,11 @@ import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_reverse_param
 import 'package:vietmap_flutter_plugin/vietmap_flutter_plugin.dart';
 
 Future<void> main() async {
-  await dotenv.load(fileName: ".env");
-  String? apikey = dotenv.env['VIETMAP_API_KEY'];
-
+  String? apikey = 'YOUR_API_KEY_HERE';
   group('Test Vietmap v3 APIs', () {
     test('API key should not be null', () {
       expect(apikey, isNotEmpty);
-      Vietmap.getInstance(apikey!);
+      Vietmap.getInstance(apikey);
     });
 
     test('Test autocomplete function', () async {
@@ -84,7 +81,7 @@ Future<void> main() async {
   group('Test Vietmap v4 APIs', () {
     test('API key should not be null', () {
       expect(apikey, isNotEmpty);
-      Vietmap.getInstance(apikey!);
+      Vietmap.getInstance(apikey);
     });
 
     test('Test autocomplete v4 function', () async {
