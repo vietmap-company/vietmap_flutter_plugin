@@ -28,7 +28,7 @@ or run this command in the terminal to add the library to the project:
 ```dart
     Vietmap.getInstance('YOUR_API_KEY_HERE');
 ```
-- We provide below methods to use Vietmap APIs:
+- We provide the following methods for using VietMap APIs v3, but we recommend using VietMap APIs v4 instead:
 ```dart
     Vietmap.autocomplete(VietMapAutoCompleteParams(textSearch: 'Hà Nội'));
     
@@ -61,7 +61,38 @@ or run this command in the terminal to add the library to the project:
     ]));
                 
 ```
+- From version 0.5.0, we provide methods to use Vietmap APIs v4 with enhanced features:
+```dart
+    
+    Vietmap.autocompleteV4(VietmapAutocompleteParamsV4(text: 'Hà Nội'));
+    
+    Vietmap.geoCodeV4(VietmapAutocompleteParamsV4(text: 'Hà Nội'));
+    
+    Vietmap.reverseV4(VietmapReverseParams(latLng: LatLng(21.027763, 105.834160)));
+    
+    /// refId: A unique refid identifier generated from search response
+    Vietmap.placeV4('refId');
+    
+    Vietmap.migrateAddress(
+      VietmapMigrateAddressParams(text: '197 Trần Phú, Phường 4, Quận 5, Thành phố Hồ Chí Minh, Việt Nam')
+    );
+    
+    Vietmap.getMapStyle(type: TileMapEnum.vectorDefault); // Other options: vectorLight, rasterDefault, etc.
 
+```
+
+### Why use v4 APIs?
+- [Autocomplete v4](https://maps.vietmap.vn/docs/map-api/autocomplete-version/autocomplete-v4): Enhanced address suggestions with better accuracy, more relevant results, and advanced filtering options including categories and boundaries
+
+- [Geocode v4](https://maps.vietmap.vn/docs/map-api/geocode-version/geocode-v4): Improved address resolution with more detailed address components, better handling of Vietnamese addresses, and enhanced entry point data
+
+- [Reverse v4](https://maps.vietmap.vn/docs/map-api/place-v4): Richer location context with more detailed address information, better handling of complex areas, and improved category classification
+
+- [Place v4](https://maps.vietmap.vn/docs/map-api/place-v4): More comprehensive place details including enhanced POI information, accurate entry points, and improved address context
+
+- [Migrate Address API](https://maps.vietmap.vn/docs/migrate-address/migrate-address-docs): New functionality to standardize addresses across different formats and provide consistent addressing for your applications
+
+#### v4 APIs provide better performance, more accurate results, and richer data to improve your user experience.
 
 ## Additional information
 This package is a part of [Vietmap API](https://vietmap.vn/maps-api) project.

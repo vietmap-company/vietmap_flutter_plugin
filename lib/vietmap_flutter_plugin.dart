@@ -33,6 +33,14 @@ export 'src/data/models/vietmap_routing_model.dart' show VietMapRoutingModel;
 export 'src/data/models/vietmap_place_model.dart' show VietmapPlaceModel;
 export 'src/data/models/vietmap_reverse_model.dart' show VietmapReverseModel;
 export 'src/data/models/vietmap_boundaries_model.dart' show VietmapBoundaries;
+export 'src/data/models/vietmap_entry_point_model.dart'
+    show VietmapEntryPointModel;
+export 'src/data/models/vietmap_migrate_address_model.dart'
+    show VietmapMigrateAddressModel;
+export 'src/data/models/vietmap_autocomplete_model_v4.dart'
+    show VietmapAutocompleteModelV4;
+export 'src/data/models/vietmap_reverse_model_v4.dart'
+    show VietmapReverseModelV4;
 
 export 'package:dartz/dartz.dart' show Either, Left, Right;
 

@@ -1,7 +1,7 @@
 import '../../domain/entities/vietmap_model.dart';
 
-// VietmapPlaceModel is a model class that is used to parse the response
-// from the server.
+/// VietmapPlaceModel is a model class that is used to parse the response
+/// from the server.
 class VietmapPlaceModel extends VietmapModel {
   /// [hsNum] is the house number of the place.
   String? hsNum;
@@ -84,5 +84,10 @@ class VietmapPlaceModel extends VietmapModel {
     return data
         .where((element) => element != null && element.isNotEmpty)
         .join(', ');
+  }
+
+  @override
+  String toString() {
+    return 'VietmapPlaceModel{$display, lat: $lat, lng: $lng, address: $address}';
   }
 }
