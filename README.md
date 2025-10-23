@@ -70,7 +70,8 @@ or run this command in the terminal to add the library to the project:
     
     Vietmap.reverseV4(VietmapReverseParams(latLng: LatLng(21.027763, 105.834160)));
     
-    Vietmap.placeV4('197 Trần Phú, Phường 4, Quận 5, Thành phố Hồ Chí Minh, Việt Nam');
+    /// refId: A unique refid identifier generated from search response
+    Vietmap.placeV4('refId');
     
     Vietmap.migrateAddress(
       VietmapMigrateAddressParams(text: '197 Trần Phú, Phường 4, Quận 5, Thành phố Hồ Chí Minh, Việt Nam')
