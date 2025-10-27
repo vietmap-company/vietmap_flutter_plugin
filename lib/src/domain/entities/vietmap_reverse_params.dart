@@ -11,5 +11,6 @@ class VietmapReverseParams {
   final ReverseDisplayEnum? displayType;
 
   VietmapReverseParams(
-      {required this.latLng, this.displayType = ReverseDisplayEnum.oldFormat});
+      {required this.latLng,
+      this.displayType = ReverseDisplayEnum.bothOldAndNew});
 }

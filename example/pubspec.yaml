@@ -38,7 +38,7 @@ dependencies:
 
   vietmap_flutter_plugin:
     path: ../
-  vietmap_flutter_gl: ^4.0.0
+  vietmap_flutter_gl: ^4.1.0
 
 
 dev_dependencies:

@@ -1,5 +1,5 @@
 ## 0.5.0, Oct 23, 2025
-* Upgraded `geocode`, `reverse`, `place detail`, and `autocomplete` APIs from `v3` to `v4`
+* Deprecated v3 APIs and implemented enhanced v4 versions of `geocode`, `reverse`, `place detail`, and `autocomplete`
 * Implemented `migrate address` API
 * Added `getMapStyle` function to get map style URL by map type enum
 * Added new model `VietmapEntryPointModel`, `VietmapMigrateAddressModel`, `VietmapAutocompleteModelV4`, `VietmapReverseModelV4`
