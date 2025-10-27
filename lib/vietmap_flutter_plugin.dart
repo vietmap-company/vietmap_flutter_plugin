@@ -18,6 +18,12 @@ export 'package:vietmap_gl_platform_interface/vietmap_gl_platform_interface.dart
 
 export 'src/utilities/util.dart' show VietmapUtils;
 
+export 'src/core/enums/autocomplete_display_enum.dart'
+    show AutocompleteDisplayEnum;
+export 'src/core/enums/migrate_enum.dart' show MigrateEnum;
+export 'src/core/enums/reverse_display_enum.dart' show ReverseDisplayEnum;
+export 'src/core/enums/tilemap_enum.dart' show TileMapEnum;
+
 export 'src/core/failures/api_server_failure.dart' show ApiServerFailure;
 export 'src/core/failures/api_timeout_failure.dart' show ApiTimeOutFailure;
 export 'src/core/failures/apikey_limited_failure.dart'
@@ -33,6 +39,7 @@ export 'src/data/models/vietmap_routing_model.dart' show VietMapRoutingModel;
 export 'src/data/models/vietmap_place_model.dart' show VietmapPlaceModel;
 export 'src/data/models/vietmap_reverse_model.dart' show VietmapReverseModel;
 export 'src/data/models/vietmap_boundaries_model.dart' show VietmapBoundaries;
+export 'src/data/models/vietmap_matrix_model.dart' show VietmapMatrixModel;
 export 'src/data/models/vietmap_entry_point_model.dart'
     show VietmapEntryPointModel;
 export 'src/data/models/vietmap_migrate_address_model.dart'
@@ -53,5 +60,12 @@ export 'src/extension/string_extension.dart' show StringExtension;
 export 'src/domain/entities/vietmap_model.dart' show VietmapModel;
 export 'src/domain/entities/vietmap_routing.dart'
     show VietMapRouting, Paths, Instructions;
-export 'src/data/models/vietmap_matrix_model.dart';
-export 'src/domain/entities/vietmap_matrix_params.dart';
+
+export 'src/domain/entities/vietmap_matrix_params.dart'
+    show VietmapMatrixParams;
+export 'src/domain/entities/vietmap_autocomplete_params_v4.dart'
+    show VietmapAutocompleteParamsV4;
+export 'src/domain/entities/vietmap_migrate_address_params.dart'
+    show VietmapMigrateAddressParams;
+export 'src/domain/entities/vietmap_reverse_params.dart'
+    show VietmapReverseParams;
