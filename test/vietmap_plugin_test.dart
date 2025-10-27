@@ -1,11 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:vietmap_flutter_plugin/src/core/enums/tilemap_enum.dart';
-
-import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_autocomplete_params_v4.dart';
-import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_migrate_address_params.dart';
-
-import 'package:vietmap_flutter_plugin/src/domain/entities/vietmap_reverse_params.dart';
 import 'package:vietmap_flutter_plugin/vietmap_flutter_plugin.dart';
 
 Future<void> main() async {

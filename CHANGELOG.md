@@ -1,3 +1,5 @@
+## 0.5.2, Oct 23, 2025
+* Add more export file
 ## 0.5.1, Oct 23, 2025
 * Deprecated v3 APIs and implemented enhanced v4 versions of `geocode`, `reverse`, `place detail`, and `autocomplete`
 * Implemented `migrate address` API
