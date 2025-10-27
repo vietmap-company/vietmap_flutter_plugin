@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="vietmap_flutter_plugin API docs, for the Dart programming language.">
+  <title>vietmap_flutter_plugin - Dart API docs</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="static-assets/github.css?v1">
+  <link rel="stylesheet" href="static-assets/styles.css?v1">
+  <link rel="icon" href="static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="https://maps.vietmap.vn">vietmap_flutter_plugin package</a></li>
+  </ol>
+  <div class="self-name">vietmap_flutter_plugin</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
+</header>
+<main>
+  <div id="dartdoc-main-content" class="main-content">
+      
+<section class="desc markdown">
+  <p>A Dart package for using the <a href="https://maps.vietmap.vn/docs/map-api/overview/">VietMap APIs</a> in Dart.</p>
+<h1 id="vietmap-api-flutter-plugin">Vietmap API Flutter plugin</h1>
+<p><a href="https://vietmap.vn/maps-api"><img src="https://bizweb.dktcdn.net/100/415/690/themes/804206/assets/logo.png?1689561872933" height="40"> </a></p><p></p>
+<p>Contact <a href="https://bit.ly/vietmap-api">vietmap.vn</a> to register a valid key.</p>
+<h2 id="getting-started">Getting started</h2>
+<p>Add library to pubspec.yaml file</p>
+<pre class="language-yaml"><code class="language-yaml">  vietmap_flutter_plugin: latest_version
+</code></pre>
+<p>Check the latest version at <a href="https://pub.dev/packages/vietmap_flutter_plugin">https://pub.dev/packages/vietmap_flutter_plugin</a></p>
+<p>or run this command in the terminal to add the library to the project:</p>
+<pre class="language-bash"><code class="language-bash">  flutter pub add vietmap_flutter_plugin
+</code></pre>
+<h2 id="usage">Usage</h2>
+<h3 id="init-plugin">Init plugin</h3>
+<ul>
+<li>You must call <code>Vietmap.getInstance(apiKey)</code> before using any other methods.</li>
+</ul>
+<pre class="language-dart"><code class="language-dart">    Vietmap.getInstance('YOUR_API_KEY_HERE');
+</code></pre>
+<ul>
+<li>We provide the following methods for using VietMap APIs v3, but we recommend using VietMap APIs v4 instead:</li>
+</ul>
+<pre class="language-dart"><code class="language-dart">    Vietmap.autocomplete(VietMapAutoCompleteParams(textSearch: 'Hà Nội'));
+    
+    Vietmap.geoCode(VietMapAutoCompleteParams(textSearch: 'Hà Nội'));
+    
+    Vietmap.reverse(LatLng(21.027763, 105.834160));
+    
+    Vietmap.place('Place ID');
+    
+    Vietmap.routing(VietMapRoutingParams(points: [
+      LatLng(21.027763, 105.834160),
+      LatLng(21.027763, 105.834160)
+    ]));
+    
+    /// This function is used to get the style url of Vietmap,
+    /// which provide the style of the map for VietmapGL plugin.
+    Vietmap.getVietmapStyleUrl();
+    Vietmap.matrix(VietmapMatrixParams(
+      points: [
+        const LatLng(10.768897, 106.678505),
+        const LatLng(10.765496, 106.67626),
+        const LatLng(10.7627936, 106.6750729),
+        const LatLng(10.7616745, 106.6792425),
+        const LatLng(10.765605, 106.685383),
+      ],
+      sourcePoints: [0, 1],
+      isShowTablePreview: true,
+      destinationPoints: [
+        2, 3, 4,
+    ]));
+                
+</code></pre>
+<ul>
+<li>From version 0.5.1, we provide methods to use Vietmap APIs v4 with enhanced features:</li>
+</ul>
+<pre class="language-dart"><code class="language-dart">    
+    Vietmap.autocompleteV4(VietmapAutocompleteParamsV4(text: 'Hà Nội'));
+    
+    Vietmap.geoCodeV4(VietmapAutocompleteParamsV4(text: 'Hà Nội'));
+    
+    Vietmap.reverseV4(VietmapReverseParams(latLng: LatLng(21.027763, 105.834160)));
+    
+    /// refId: A unique refid identifier generated from search response
+    Vietmap.placeV4('refId');
+    
+    Vietmap.migrateAddress(
+      VietmapMigrateAddressParams(text: '197 Trần Phú, Phường 4, Quận 5, Thành phố Hồ Chí Minh, Việt Nam')
+    );
+    
+    Vietmap.getMapStyle(type: TileMapEnum.vectorDefault); // Other options: vectorLight, rasterDefault, etc.
+
+</code></pre>
+<h3 id="why-use-v4-apis">Why use v4 APIs?</h3>
+<ul>
+<li>
+<p><a href="https://maps.vietmap.vn/docs/map-api/autocomplete-version/autocomplete-v4">Autocomplete v4</a>: Enhanced address suggestions with better accuracy, more relevant results, and advanced filtering options including categories and boundaries</p>
+</li>
+<li>
+<p><a href="https://maps.vietmap.vn/docs/map-api/geocode-version/geocode-v4">Geocode v4</a>: Improved address resolution with more detailed address components, better handling of Vietnamese addresses, and enhanced entry point data</p>
+</li>
+<li>
+<p><a href="https://maps.vietmap.vn/docs/map-api/place-v4">Reverse v4</a>: Richer location context with more detailed address information, better handling of complex areas, and improved category classification</p>
+</li>
+<li>
+<p><a href="https://maps.vietmap.vn/docs/map-api/place-v4">Place v4</a>: More comprehensive place details including enhanced POI information, accurate entry points, and improved address context</p>
+</li>
+<li>
+<p><a href="https://maps.vietmap.vn/docs/migrate-address/migrate-address-docs">Migrate Address API</a>: New functionality to standardize addresses across different formats and provide consistent addressing for your applications</p>
+</li>
+</ul>
+<h4 id="v4-apis-provide-better-performance-more-accurate-results-and-richer-data-to-improve-your-user-experience">v4 APIs provide better performance, more accurate results, and richer data to improve your user experience.</h4>
+<h2 id="additional-information">Additional information</h2>
+<p>This package is a part of <a href="https://vietmap.vn/maps-api">Vietmap API</a> project.</p>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<p>Our plugin depend on <a href="https://pub.dev/packages/dio">dio</a> and <a href="https://pub.dev/packages/dartz">dartz</a> package with latest version.
+If our plugin conflict with your current project, please try to use the latest version of these packages or follow the instruction below:</p>
+<pre class="language-yaml"><code class="language-yaml">dependencies:
+    dio: your_project_version
+    dartz: your_project_version
+
+dependencies_override:
+    dio: our_plugin_version
+    dartz: our_plugin_version
+</code></pre>
+<p>We use <a href="https://pub.dev/packages/dartz">dartz</a> package to response the api result.
+Please check the <a href="https://pub.dev/packages/dartz">dartz</a> package to know how to handle the result.</p>
+<pre class="language-dart"><code class="language-dart">var autocompleteData = await Vietmap.autocomplete(VietMapAutoCompleteParams(textSearch: 'Hà Nội'));
+autocompleteData.fold(
+      (Failure left) {
+        // Handle error here
+      },
+      (List&lt;VietmapAutocompleteModel&gt; right) {
+        // Handle success here
+      },
+    );
+</code></pre>
+<h2 id="note-replace-apikey-which-is-provided-by-vietmap-to-all-your_api_key_here-tag-to-the-application-work-normally">Note: Replace apikey which is provided by VietMap to all YOUR_API_KEY_HERE tag to the application work normally</h2>
+<p><a href="https://vietmap.vn/maps-api"><img src="https://bizweb.dktcdn.net/100/415/690/themes/804206/assets/logo.png?1689561872933" height="40"> </a></p>
+Email us: <a href="mailto:maps-api.support@vietmap.vn"></a><a href="mailto:maps-api.support@vietmap.vn">maps-api.support@vietmap.vn</a><p></p>
+<p>Vietmap API and price <a href="https://vietmap.vn/maps-api">here</a></p>
+<p>Contact for <a href="https://vietmap.vn/lien-he">support</a></p>
+<p>Vietmap API document <a href="https://maps.vietmap.vn/docs/map-api/overview/">here</a></p>
+<p>Have a bug to report? <a href="https://github.com/vietmap-company/vietmap_flutter_plugin/issues">Open an issue</a>. If possible, include a full log and information which shows the issue.</p>
+<p>Have a feature request? <a href="https://github.com/vietmap-company/vietmap_flutter_plugin/issues">Open an issue</a>. Tell us what the feature should do and why you want the feature.</p>
+</section>
+
+
+      <section class="summary">
+          <h2>Libraries</h2>
+        <dl>
+          <dt id="vietmap_flutter_plugin">
+  <span class="name"><a href="vietmap_flutter_plugin/">vietmap_flutter_plugin</a></span> 
+
+</dt>
+<dd>vietmap_flutter_plugin
+</dd>
+
+        </dl>
+      </section>
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="https://maps.vietmap.vn">vietmap_flutter_plugin package</a></li>
+</ol>
+
+    <h5 class="hidden-xs"><span class="package-name">vietmap_flutter_plugin</span> <span class="package-kind">package</span></h5>
+    <ol>
+      <li class="section-title">Libraries</li>
+      <li><a href="vietmap_flutter_plugin/">vietmap_flutter_plugin</a></li>
+</ol>
+
+  </div>
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div>
+</main>
+<footer>
+  <span class="no-break">
+    vietmap_flutter_plugin
+      0.5.2
+  </span>
+  
+</footer>
+
+
+<script src="static-assets/highlight.pack.js?v1"></script>
+<script src="static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+
