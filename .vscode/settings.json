@@ -1,5 +1,6 @@
 {
-    "cSpell.words": [
-        "vietmap"
-    ]
+  "cSpell.words": [
+    "vietmap"
+  ],
+  "dart.flutterSdkPath": "~/fvm/versions/3.16.0"
 }
