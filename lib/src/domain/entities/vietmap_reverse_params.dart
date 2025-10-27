@@ -1,4 +1,3 @@
-import 'package:vietmap_flutter_plugin/src/core/enums/reverse_display_enum.dart';
 import 'package:vietmap_flutter_plugin/vietmap_flutter_plugin.dart';
 
 /// This class represents the parameters for reverse geocoding requests in Vietmap API version 4.

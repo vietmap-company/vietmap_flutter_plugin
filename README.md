@@ -61,7 +61,7 @@ or run this command in the terminal to add the library to the project:
     ]));
                 
 ```
-- From version 0.5.0, we provide methods to use Vietmap APIs v4 with enhanced features:
+- From version 0.5.1, we provide methods to use Vietmap APIs v4 with enhanced features:
 ```dart
     
     Vietmap.autocompleteV4(VietmapAutocompleteParamsV4(text: 'Hà Nội'));

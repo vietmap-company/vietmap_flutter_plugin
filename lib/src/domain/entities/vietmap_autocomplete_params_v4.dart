@@ -1,4 +1,3 @@
-import 'package:vietmap_flutter_plugin/src/core/enums/autocomplete_display_enum.dart';
 import 'package:vietmap_flutter_plugin/vietmap_flutter_plugin.dart';
 
 /// This class represents the parameters for Vietmap Autocomplete and Geocode API version 4.
